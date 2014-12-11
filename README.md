@@ -50,6 +50,8 @@ Only a demonstration, provide participants with ready to use Makefile
 
 Make sure that participants with Windows will be able to run them.
 
+Clarify that make alone regenerates results, but does not ensure reproducibility, in that without good documentation, other users will still not be able to understand what you have done.
+
 ## Demonstrate Travis-CI
 
 Present a flow diagram that shows how local computer, github and travis-ci are
