@@ -69,6 +69,11 @@ how the badge goes green again.
 ### Exercises to go through the class with:
 
 	scripts to functions:
+		go from making a figure from one script with line after line of 
+			code to one script with a function and another script reading
+			in the data, setting the plot parameters, and running the 
+			function created
+			
 		include github here and brief pull/push lessons?
 	
 	clean directories
