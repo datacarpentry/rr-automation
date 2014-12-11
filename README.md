@@ -50,7 +50,8 @@ Only a demonstration, provide participants with ready to use Makefile
 
 Make sure that participants with Windows will be able to run them.
 
-Clarify that make alone regenerates results, but does not ensure reproducibility, in that without good documentation, other users will still not be able to understand what you have done.
+Clarify that make alone regenerates results, but does not ensure reproducibility, in that without good 
+documentation, other users will still not be able to understand what you have done.
 
 ## Demonstrate Travis-CI
 
@@ -63,6 +64,17 @@ Makefile to fail, show how the badge goes red on github, fix the error, and show
 how the badge goes green again.
 
 
+
+
+### Exercises to go through the class with:
+
+	scripts to functions:
+	
+	clean directories
+	
+	make new from clean (or make from the instance of only one file updated?)
+	
+	intergrate R code with Travis to ensure that nothing has broken between the last change and the new make
 
 
 
