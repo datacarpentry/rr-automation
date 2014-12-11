@@ -74,7 +74,8 @@ how the badge goes green again.
 	
 	make new from clean (or make from the instance of only one file updated?)
 	
-	intergrate R code with Travis to ensure that nothing has broken between the last change and the new make
+	intergrate R code with Travis to ensure that nothing 
+	has broken between the last change and the new make
 
 
 
