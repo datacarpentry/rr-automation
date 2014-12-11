@@ -68,5 +68,10 @@ how the badge goes green again.
 
 ## Resources
 
+### Functionalize figures
+
+- Rich's way of making [figures](http://nicercode.github.io/blog/2013-07-09-figure-functions/)
+
+### Make
 - Karl's Broman [introduction to GNU Make](http://kbroman.org/minimal_make/).
 - Software Carpentry [Make lesson](http://software-carpentry.org/v4/make/index.html)
