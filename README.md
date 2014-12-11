@@ -52,7 +52,15 @@ Make sure that participants with Windows will be able to run them.
 
 ## Demonstrate Travis-CI
 
-?
+Present a flow diagram that shows how local computer, github and travis-ci are
+connected.
+
+Make a demonstration that uses travis-ci to check that the manuscript builds
+correctly. Ideally, make a modification to one of the file that causes the
+Makefile to fail, show how the badge goes red on github, fix the error, and show
+how the badge goes green again.
+
+
 
 
 
