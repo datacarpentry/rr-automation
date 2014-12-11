@@ -40,6 +40,11 @@ Only a demonstration, provide participants with ready to use Makefile
 
 Make sure that participants with Windows will be able to run them.
 
+## Demonstrate Travis-CI
+
+?
+
+
 
 ## Resources
 
