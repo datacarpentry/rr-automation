@@ -69,13 +69,14 @@ how the badge goes green again.
 ### Exercises to go through the class with:
 
 	scripts to functions:
+		include github here and brief pull/push lessons?
 	
 	clean directories
 	
 	make new from clean (or make from the instance of only one file updated?)
 	
-	intergrate R code with Travis to ensure that nothing 
-	has broken between the last change and the new make
+	intergrate R code with Travis to ensure that nothing has broken between 
+	the last change and the new make
 
 
 
