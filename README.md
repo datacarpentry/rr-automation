@@ -3,6 +3,13 @@ rr-automation
 
 Resources for automation tutorials
 
+## People
+
+* Kim Gilbert ([@kjgilbert](https://github.com/kjgilbert))
+* Matt Pennell ([@mwpennell](https://github.com/mwpennell))
+* **François Michonneau** ([@fmichonneau](https://github.com/fmichonneau))
+
+
 ## Functionalize/Modularize functions
 
 Go through exercise of transforming scripts into functions
