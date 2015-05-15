@@ -1,13 +1,18 @@
 
 
 
+## ------------------------------------------------------------------------
 ## Fahrenheit to Celsius
 (70 - 32) * 5/9
 (65 - 32) * 5/9
 (85 - 32) * 5/9
+
+## ------------------------------------------------------------------------
 fahr_to_celsius <- function(temp) {
     (temp - 32) * 5/9
 }
+
+## ------------------------------------------------------------------------
 convert_fahr <- function(temp, to) {
     res <- (temp - 32) * 5/9
     if (to == "kelvin") {
@@ -15,6 +20,8 @@ convert_fahr <- function(temp, to) {
     }
     res
 }
+
+## ------------------------------------------------------------------------
 convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
     to <- tolower(to)
     to <- match.arg(to)
@@ -24,6 +31,8 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
     }
     res
 }
+
+## ------------------------------------------------------------------------
 fahr_to_celsius <- function(temp) {
     (temp - 32) * 5/9
 }
@@ -41,9 +50,13 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
     }
     res
 }
+
+## ---- fig.show='hide'----------------------------------------------------
 plot(Nile)
 hist(Nile)
 mean(Nile)
+
+## ---- purl=TRUE, fig.show='hide'-----------------------------------------
 par(mfrow=c(1, 2))
 plot(Nile)
 abline(h = mean(Nile), col = "red", lwd = 3, lty = 2)
@@ -52,6 +65,8 @@ fit <- loess(Nile ~ seq(yrs[1], yrs[2], 1))
 lines(seq(yrs[1], yrs[2]), fitted(fit), col = "blue", lwd = 2)
 hist(Nile)
 abline(v = mean(Nile), col = "red",  lwd = 3, lty = 2)
+
+## ---- eval=FALSE---------------------------------------------------------
 ## pdf(file="nile_flow.pdf", width=8, height=6)
 ## 
 ## par(mfrow=c(1, 2))
@@ -64,6 +79,8 @@ abline(v = mean(Nile), col = "red",  lwd = 3, lty = 2)
 ## abline(v = mean(Nile), col = "red",  lwd = 3, lty = 2)
 ## 
 ## dev.off()
+
+## ------------------------------------------------------------------------
 fig_Nile <- function() {
     par(mfrow=c(1, 2))
     plot(Nile, cex = .7)
@@ -74,9 +91,13 @@ fig_Nile <- function() {
     hist(Nile, cex = .7)
     abline(v = mean(Nile), col = "red",  lwd = 3, lty = 2)
 }
+
+## ---- eval=FALSE---------------------------------------------------------
 ## pdf(file="nile_flow.pdf", width=6.5, height=4)
 ## fig_Nile()
 ## dev.off()
+
+## ---- purl=TRUE----------------------------------------------------------
 make_pdf <- function(expr,  filename, ..., verbose = TRUE) {
     if (verbose) {
         message("Creating: ", filename)
@@ -85,7 +106,11 @@ make_pdf <- function(expr,  filename, ..., verbose = TRUE) {
     on.exit(dev.off())
     eval.parent(substitute(expr))
 }
+
+## ------------------------------------------------------------------------
 make_pdf(fig_Nile(), "nile_flow.pdf", width = 6.5, height = 4)
+
+## ---- purl=TRUE----------------------------------------------------------
 
 finland <- read.csv(file = "data-raw/Finland-gdp-percapita.csv")
 japan <- read.csv(file="data-raw/Japan-gdp-percapita.csv")
@@ -98,30 +123,42 @@ abline(fit_japan, col="blue", lwd=3, lty=2)
 
 
 
+
+## ---- purl=TRUE----------------------------------------------------------
 split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
 split_gdp_list <- lapply(split_gdp_files, read.csv)
 gdp <- do.call("rbind", split_gdp_list)
+
+## ------------------------------------------------------------------------
 gather_gdp_data <- function() {
     split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
     split_gdp_list <- lapply(split_gdp_files, read.csv)
     gdp <- do.call("rbind", split_gdp_list)
     gdp
 }
+
+## ---- purl=TRUE----------------------------------------------------------
 make_csv <- function(obj, file, ...,  verbose = TRUE) {
     if (verbose) {
         message("Creating csv file: ", file)
     }
     write.csv(obj, file = file, row.names = FALSE, ...)
 }
+
+## ---- purl=TRUE----------------------------------------------------------
 ## Turn this into a function
 mean_lifeExp_by_cont <- gdp %>% group_by(continent, year) %>%
   summarize(mean_lifeExp = mean(lifeExp)) %>% as.data.frame
+
+## ---- purl=TRUE----------------------------------------------------------
 ## Turn this into a function
 latest_lifeExp <- gdp %>% filter(year == max(gdp$year)) %>%
       group_by(continent) %>%
       summarize(latest_lifeExp = mean(lifeExp)) %>%
       as.data.frame
     latest_lifeExp
+
+## ---- purl=TRUE----------------------------------------------------------
 ## If you need to save an R object to avoid the repetition of long computations
 make_rds <- function(obj, file, ..., verbose = TRUE) {
     if (verbose) {
@@ -129,6 +166,8 @@ make_rds <- function(obj, file, ..., verbose = TRUE) {
     }
     saveRDS(obj, file = file)
 }
+
+## ---- eval=FALSE---------------------------------------------------------
 ## if ( !file.exists("data-output/gdp.rds")) {
 ##     gdp <- gather_gdp_data() ## long computation...
 ##     make_rds(gdp, file="data-output/gdp.rds")
@@ -136,12 +175,16 @@ make_rds <- function(obj, file, ..., verbose = TRUE) {
 ## gdp <- readRDS(file="data-output/gdp.rds")
 
 
+
+## ---- purl=TRUE----------------------------------------------------------
 test_that("my first test: correct number of countries",
           expect_equal(length(unique(gather_gdp_data()$country)),
                        length(list.files(path = "data-raw/", pattern="gdp-percapita\\.csv$")))
           )
 
 
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to R/figure.R
 plot_summary_lifeExp_by_continent <- function(mean_lifeExp) {
     ggplot(mean_lifeExp, aes(x = year, y = mean_lifeExp, colour = continent)) +
@@ -154,6 +197,8 @@ plot_change_trend <- function(mean_lifeExp, year_break) {
       geom_point() + geom_path()
 }
 ## -----
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to make.R
 make_summary_by_continent <- function(path = "fig", ...) {
     mean_lifeExp <- get_mean_lifeExp(gather_gdp_data())
@@ -167,6 +212,8 @@ make_change_trend <- function(path = "fig", year = 1980, ...) {
     make_pdf(print(p), file = file.path(path, "change_trend.pdf"), ...)
 }
 ## -----
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to make.R
 make_data <- function(path = "data-output", verbose = TRUE) {
     make_gdp_data(path)
@@ -183,6 +230,8 @@ make_mean_lifeExp_data <- function(path = "data-output") {
     make_csv(get_mean_lifeExp(gdp), file = file.path(path, "mean_lifeExp.csv"))
 }
 ## -----
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to R/data.R
 gather_gdp_data <- function(path = "data-raw") {
     split_gdp_files <- list.files(path = path, pattern = "gdp-percapita\\.csv$", full.names = TRUE)
@@ -223,6 +272,8 @@ get_coef_before_after <- function(mean_lifeExp, year_break) {
     coef_before_after
 }
 ## -----
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to make.R
 clean_data <- function(path = "data-output") {
     to_rm <- list.files(path = path, pattern = "csv$", full.names = TRUE)
@@ -236,6 +287,8 @@ clean_figures <- function(path = "fig") {
     invisible(res)
 }
 ## -----
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to make.R
 make_ms <- function() {
     rmarkdown::render("manuscript.Rmd", "pdf_document")
@@ -260,6 +313,8 @@ clean_all <- function() {
     clean_ms()
 }
 ## -----
+
+## ---- purl=TRUE----------------------------------------------------------
 ## add this to make.R
 make_tests <- function() {
     if (require(testthat)) {
@@ -273,5 +328,6 @@ make_tests <- function() {
     }
 }
 ## -----
+
 
 

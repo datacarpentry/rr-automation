@@ -1,5 +1,9 @@
+.PHONY := handout
+
+handout: example-manuscript/handout.R
+
 handout-%.R: %.Rmd
-	Rscript -e "knitr::purl('$<', output='$@', documentation=0L)"
+	Rscript -e "knitr::purl('$<', output='$@', documentation=1L)"
 
 example-manuscript/handout.R: handout-01-automation.R handout-02-functions-for-figures.R handout-03-functions-for-data.R handout-04-testing.R handout-05-getting-organized.R
 	for f in $^; do cat $$f; echo "\n"; done > $@
