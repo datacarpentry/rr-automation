@@ -1,0 +1,53 @@
+```{r setup, echo = FALSE, results='hide', message = FALSE, warning = FALSE}
+opts_chunk$set(echo = FALSE)
+invisible(sapply(list.files(path = "R", pattern = "R$", full.names = TRUE), source))
+```
+
+```{r author-info}
+first_name <- "your first name"
+last_name <- "your last name"
+affiliation <- "your affiliation"
+address <- "your address"
+email <- "your email"
+```
+
+# Increase in life expectancy through time: a continental analysis
+
+> By `r last_name`, `r first_name`
+>
+> Affiliation: `r affiliation`, `r address`
+>
+> Email: `r email`
+
+In this paper, we will examine the change in life expectancy through time across
+the five continents.
+
+```{r summary}
+gdp <- gather_gdp_data()
+latest_lifeExp <- get_latest_lifeExp(gdp)
+mean_lifeExp <- get_mean_lifeExp(gdp)
+```
+
+
+## The situation
+
+There are important disparities in life expectancy across the five
+continents. It ranges from `r min(latest_lifeExp[["latest_lifeExp"]])`
+in `r latest_lifeExp[["continent"]][which.min(latest_lifeExp$latest_lifeExp)]`,
+to `r max(latest_lifeExp[["latest_lifeExp"]])`
+in `r latest_lifeExp[["continent"]][which.max(latest_lifeExp$latest_lifeExp)]`.
+
+These disparities are also reflected in the increases in life expectancy between
+`r min(gdp$year)` and `r max(gdp$year)`.
+
+```{r lifeExp-trends-per-continent}
+plot_summary_lifeExp_by_continent(mean_lifeExp)
+```
+
+To investigate these differences in more detail, we compared the rate of increase
+for the periods `r min(gdp$year)`-`r manuscript_options()$year`
+and `r manuscript_options()$year`-`r max(gdp$year)`
+
+```{r change_trend}
+plot_change_trend(mean_lifeExp, manuscript_options()$year)
+```
