@@ -1,0 +1,83 @@
+
+# Functions for data
+
+Now that we know how to write functions for generating figures, we can use the
+same concept and apply to preparing and generating data.
+
+```{r, purl=TRUE}
+split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
+split_gdp_list <- lapply(split_gdp_files, read.csv)
+gdp <- do.call("rbind", split_gdp_list)
+```
+
+```{r}
+gather_gdp_data <- function() {
+    split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
+    split_gdp_list <- lapply(split_gdp_files, read.csv)
+    gdp <- do.call("rbind", split_gdp_list)
+    gdp
+}
+```
+
+Just like we created a `make_pdf` function to automatically generate PDF files
+from our figures, we can create a `make_csv` function to automatically generate
+CSV files from our data sets. This might come handy if you want to send your
+intermediate datasets to your collaborators or if you want to inspect more
+closely that everything is working as it should.
+
+```{r, purl=TRUE}
+make_csv <- function(obj, file, ...,  verbose = TRUE) {
+    if (verbose) {
+        message("Creating csv file: ", file)
+    }
+    write.csv(obj, file = file, row.names = FALSE, ...)
+}
+```
+
+### Your turn
+
+Transform into functions these two pieces of code.
+
+```{r, purl=TRUE}
+## Turn this into a function
+mean_lifeExp_by_cont <- gdp %>% group_by(continent, year) %>%
+  summarize(mean_lifeExp = mean(lifeExp)) %>% as.data.frame
+```
+
+```{r, purl=TRUE}
+## Turn this into a function
+latest_lifeExp <- gdp %>% filter(year == max(gdp$year)) %>%
+      group_by(continent) %>%
+      summarize(latest_lifeExp = mean(lifeExp)) %>%
+      as.data.frame
+    latest_lifeExp
+```
+
+## Long computations
+
+Caching is available in knitr but it can be pretty fragile. If you can't make a
+CSV file because you need to store an R object.
+
+```{r, purl=TRUE}
+## If you need to save an R object to avoid the repetition of long computations
+make_rds <- function(obj, file, ..., verbose = TRUE) {
+    if (verbose) {
+        message("Creating rds file: ", file)
+    }
+    saveRDS(obj, file = file)
+}
+```
+
+Then in your knitr document, you can do:
+
+`gdp <- readRDS(file="data-output/gdp.rds")`
+
+or maybe even:
+
+```{r, eval=FALSE}
+if ( !file.exists("data-output/gdp.rds")) {
+    gdp <- gather_gdp_data() ## long computation...
+    make_rds(gdp, file="data-output/gdp.rds")
+}
+gdp <- readRDS(file="data-output/gdp.rds")
+```

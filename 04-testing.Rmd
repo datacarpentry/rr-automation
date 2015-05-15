@@ -1,0 +1,37 @@
+# Testing
+
+
+## Using `testthat` to test your functions
+
+One of the advantage of divvying up your entire manuscript into functions, is
+that you can test that they perform properly.
+
+To do so, we are going to use the package `testthat` that has been designed to
+test functions written for packages, but it can be applied to any kind of
+functions.
+
+Make sure you have `testthat` installed:
+
+`install.pacakges("testthat")`
+
+Let's start by writing a first test:
+
+```{r, purl=TRUE}
+test_that("my first test: correct number of countries",
+          expect_equal(length(unique(gather_gdp_data()$country)),
+                       length(list.files(path = "data-raw/", pattern="gdp-percapita\\.csv$")))
+          )
+```
+
+The tests should be wrapped within the `test_that` function, you then provide a
+short sentence that explains the nature of the test. Keep it short and
+meaningful because it will be shown to you if the test fails, and having a clear
+message will help you figure out the problem.
+
+Then you can use one of the several functions that `testthat` provides that
+tells you what you should expect from your function. The most commonly used ones
+are `expect_equal()`, `expect_true()`, `expect_warning()` and `expect_error()`.
+
+### Your turn
+
+Write a test for the `get_mean_lifeExp()` data.
