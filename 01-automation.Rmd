@@ -49,12 +49,16 @@ modular framework in place where each section of your analysis can be
 self-contained so you don't depend on a linear script that will not reflect the
 complexity of your analysis.
 
+![Functionalize all the things!](/img/functionalize_all_the_things.png)
+
 ## Modularity
 
 By breaking down your analysis into functions, you end up with blocks of code
 that can interact and depend on each others in explicit ways. It allows you to
 avoid repeating yourself, and you will be able to re-use the functions you
 create for other projects more easily than if your paper only contains scripts.
+
+House of cards vs. house made of lego.
 
 ## Less variables to worry about to focus on the important stuff
 
@@ -71,7 +75,7 @@ dataset depend on which one, etc.
 
 ## Documenting your code
 
-Ideally, your code should be written such that it's easy to understand and your
+Ideally, your code should be written so that it's easy to understand and your
 intentions are clear. However, what might seem clear to you now might be clear
 as mud 6 months from now or even 3 weeks from now. Other times, it might not
 seem very efficient to refactor a piece of code to make it clearer, and you end
@@ -84,10 +88,10 @@ collaborators, and your future self.
 If all your analysis is made up of scripts, with pieces that are repeated in
 multiple parts of your document, things can get out of hands pretty quickly. Do
 you also duplicate your comments where you duplicate parts of your scripts? How
-do you keep the duplicated comments in sync? Re-organizing (or organizing) your
-analysis in functions from the beginning will allow you to explicitly document
-the dataset or the parameters on which your function, and therefore your
-results, depends on.
+do you keep the duplicated comments in sync? Re-organizing your scripts into
+functions (or organizing your analysis in functions from the beginning) will
+allow you to explicitly document the dataset or the parameters on which your
+function, and therefore your results, depends on.
 
 The easy way to document your code, is to simply to add comments around your
 function to explicitly indicate what the function is doing, what the arguments
