@@ -49,7 +49,7 @@ modular framework in place where each section of your analysis can be
 self-contained so you don't depend on a linear script that will not reflect the
 complexity of your analysis.
 
-![Functionalize all the things!](/img/functionalize_all_the_things.png)
+![Functionalize all the things!](/img/functionalize_all_the_things.jpg)
 
 ## Modularity
 
