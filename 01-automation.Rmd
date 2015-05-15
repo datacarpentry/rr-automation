@@ -79,23 +79,27 @@ Ideally, your code should be written so that it's easy to understand and your
 intentions are clear. However, what might seem clear to you now might be clear
 as mud 6 months from now or even 3 weeks from now. Other times, it might not
 seem very efficient to refactor a piece of code to make it clearer, and you end
-up with a piece of your that works but is klunky. If you thrive on geekiness you
-might endup over engineer a part of your code and make it more difficult to
-understand a few weeks later. In all of these situations, and even if you think
-your code is clear, it's important that you document your code for your
-collaborators, and your future self.
+up with a piece of your that works but is klunky. If you thrive on geekiness
+and/or nerdiness you might endup over engineering a part of your code and make
+it more difficult to understand a few weeks later. In all of these situations,
+and even if you think your code is clear and simple, it's important that you
+document your code and your functions, for your collaborators, and your future
+self.
 
 If all your analysis is made up of scripts, with pieces that are repeated in
-multiple parts of your document, things can get out of hands pretty quickly. Do
-you also duplicate your comments where you duplicate parts of your scripts? How
-do you keep the duplicated comments in sync? Re-organizing your scripts into
-functions (or organizing your analysis in functions from the beginning) will
-allow you to explicitly document the dataset or the parameters on which your
-function, and therefore your results, depends on.
+multiple parts of your document, things can get out of hands pretty quickly. Not
+only it is more difficult to maintain because you will have to find and replace
+the thing that you need to change in multiple places of your code, but managing
+documentation is also challenging. Do you also duplicate your comments where you
+duplicate parts of your scripts? How do you keep the duplicated comments in
+sync? Re-organizing your scripts into functions (or organizing your analysis in
+functions from the beginning) will allow you to explicitly document the dataset
+or the parameters on which your function, and therefore your results, depends
+on.
 
-The easy way to document your code, is to simply to add comments around your
-function to explicitly indicate what the function is doing, what the arguments
-are supposed to be and the kind of output you will get from it.
+The easiest way to document your code, is to add comments around your functions
+to explicitly indicate what each function is doing, what the arguments are
+supposed to be (class and format) and the kind of output you will get from it.
 
 You may also want to take advantage of roxygen, it's a format that allows the
 documentation of functions. This format is not very different from simple

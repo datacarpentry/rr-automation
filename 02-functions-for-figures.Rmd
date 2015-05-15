@@ -2,7 +2,7 @@
 ## What is a functions?
 
 ```
-input --> function --> output
+input --> function does something --> output
 ```
 
 One of the main benefits of writing functions is to avoid repetition of your
@@ -79,6 +79,13 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
 
 Your intentions are clear, everything is self contained, you can easily debug,
 test and document each of the steps involved.
+
+
+### Your turn
+
+Write a function that converts pounds in kilograms (divides by 2.2). Stretch
+goal and in grams.
+
 
 ## Writing functions to generate figures
 
