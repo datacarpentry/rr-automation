@@ -12,7 +12,7 @@ functions.
 
 Make sure you have `testthat` installed:
 
-`install.pacakges("testthat")`
+`install.packages("testthat")`
 
 Let's start by writing a first test:
 
@@ -34,4 +34,7 @@ are `expect_equal()`, `expect_true()`, `expect_warning()` and `expect_error()`.
 
 ### Your turn
 
-Write a test for the `get_mean_lifeExp()` data.
+Write a test for the `get_mean_lifeExp()` data, or write additional tests for
+the `gather_gdp_data()`.
+
+## Using Travis CI

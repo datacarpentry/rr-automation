@@ -1,14 +1,17 @@
-
 # Functions for data
 
-Now that we know how to write functions for generating figures, we can use the
-same concept and apply to preparing and generating data.
+Now that we know how to write functions, we can use the concept to preparing our
+data sets for analysis and generating the intermediary data files to share with
+our collaborators.
 
 ```{r, purl=TRUE}
+## Gathering all the data files
 split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
 split_gdp_list <- lapply(split_gdp_files, read.csv)
 gdp <- do.call("rbind", split_gdp_list)
 ```
+
+A basic function.
 
 ```{r}
 gather_gdp_data <- function() {
@@ -19,13 +22,35 @@ gather_gdp_data <- function() {
 }
 ```
 
-Just like we created a `make_pdf` function to automatically generate PDF files
-from our figures, we can create a `make_csv` function to automatically generate
-CSV files from our data sets. This might come handy if you want to send your
-intermediate datasets to your collaborators or if you want to inspect more
-closely that everything is working as it should.
+We can make it a little more general, so we could re-use for another project
+down the road:
 
-```{r, purl=TRUE}
+```{r, purl=FALSE}
+gather_data <- function(path = "data-raw", pattern = "gdp-percapita\\.csv") {
+    split_files <- list.files(path = path, pattern = pattern, full.names = TRUE)
+    split_list <- lapply(split_gdp_files, read.csv)
+    gdp <- do.call("rbind", split_gdp_list)
+    gdp
+}
+```
+
+> ## Caveats
+> - the code here is pretty simple because we know that all datasets have
+>   exactly the same column, but in a real life example, we might way to add
+>   additional checks to ensure that we won't be introducing any issues.
+> - this also illustrates how general you need to be when writing your
+>   functions. We could spend a lot of time optimizing and writing a function
+>   that would work on all cases. Sometimes it's worth your time, sometimes it
+>   might distract from your primary goal: writing the manuscript.
+
+## Towards automation
+
+We can create a `make_csv` function to automatically generate CSV files from our
+data sets. This might come handy if you want to send your intermediate datasets
+to your collaborators or if you want to inspect more closely that everything is
+working as it should.
+
+```{r, purl=FALSE}
 make_csv <- function(obj, file, ...,  verbose = TRUE) {
     if (verbose) {
         message("Creating csv file: ", file)
@@ -39,24 +64,27 @@ make_csv <- function(obj, file, ...,  verbose = TRUE) {
 Transform into functions these two pieces of code.
 
 ```{r, purl=TRUE}
-## Turn this into a function
+## Turn this into a function called get_mean_lifeExp
 mean_lifeExp_by_cont <- gdp %>% group_by(continent, year) %>%
   summarize(mean_lifeExp = mean(lifeExp)) %>% as.data.frame
 ```
 
 ```{r, purl=TRUE}
-## Turn this into a function
+## Turn this into a function called get_latest_lifeExp
 latest_lifeExp <- gdp %>% filter(year == max(gdp$year)) %>%
       group_by(continent) %>%
       summarize(latest_lifeExp = mean(lifeExp)) %>%
       as.data.frame
-    latest_lifeExp
 ```
 
 ## Long computations
 
-Caching is available in knitr but it can be pretty fragile. If you can't make a
-CSV file because you need to store an R object.
+Caching is available in knitr but it can be pretty fragile. For instance, the
+caching is only based on whether the code in your chunk changes and doesn't
+check if your data on your hard drive is changing.
+
+In other cases, the output of your R code can't be represented into a CSV files,
+so you need to save it directly into an R object.
 
 ```{r, purl=TRUE}
 ## If you need to save an R object to avoid the repetition of long computations
@@ -65,6 +93,7 @@ make_rds <- function(obj, file, ..., verbose = TRUE) {
         message("Creating rds file: ", file)
     }
     saveRDS(obj, file = file)
+    invisible(file.exists(file))
 }
 ```
 

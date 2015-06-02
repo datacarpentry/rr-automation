@@ -9,3 +9,7 @@
 
 # RStudio files
 .Rproj.user/
+/example-manuscript/actual.R
+/example-manuscript/manuscript-inline.html
+/example-manuscript/tests/
+/Makefile~

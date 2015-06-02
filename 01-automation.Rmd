@@ -136,3 +136,17 @@ tests for your code.
 > code there is in it and whether others might end up re-using it. It's not
 > because your manuscript follows the conventions of a package that you need to
 > submit to CRAN.
+
+## Organizing your files
+
+![example of file organization we will use today](img/file_organization.png)
+
+Today we are going to work on functionalizing a knitr document that is more
+complex than what we have seen so far but not quite as complex as a "real"
+research document could look like.
+
+Show the starting point:  one file per country in the data-raw folder
+
+Explain motivation: change of life expectancy by continent
+
+Go through details of the document.
