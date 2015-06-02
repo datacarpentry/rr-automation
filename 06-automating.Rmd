@@ -67,6 +67,11 @@ plot_change_trend <- function(mean_lifeExp, year_break) {
 
 ```{r, purl=TRUE}
 ## add this to make.R
+make_figures <- function(path = "fig", ...) {
+    make_summary_by_continent(path = path, ...)
+    make_change_trend(path = path, ...)
+}
+
 make_summary_by_continent <- function(path = "fig", ...) {
     mean_lifeExp <- get_mean_lifeExp(gather_gdp_data())
     p <- plot_summary_lifeExp_by_continent(mean_lifeExp)
