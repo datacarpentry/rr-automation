@@ -11,6 +11,10 @@ address <- "your address"
 email <- "your email"
 ```
 
+```{r manuscript_options}
+break_year <- 1985
+```
+
 # Increase in life expectancy through time: a continental analysis
 
 > By `r last_name`, `r first_name`
@@ -45,9 +49,18 @@ plot_summary_lifeExp_by_continent(mean_lifeExp)
 ```
 
 To investigate these differences in more detail, we compared the rate of increase
-for the periods `r min(gdp$year)`-`r manuscript_options()$year`
-and `r manuscript_options()$year`-`r max(gdp$year)`
+for the periods `r min(gdp$year)`-`r break_year`
+and `r break_year`-`r max(gdp$year)`.
 
 ```{r change_trend}
-plot_change_trend(mean_lifeExp, manuscript_options()$year)
+plot_change_trend(mean_lifeExp, break_year)
 ```
+
+The largest negative change is observed for `r change_trend$continent[largest_neg_change_index]` with a
+decrease of `r change_trend$diff[largest_neg_change_index]`.year<sup>-1</sup>
+between the two time periods; while `r change_trend$continent[largest_pos_change_index]`
+experienced the largest increase with a difference of
+`r change_trend$diff[largest_pos_change_index]`.year<sup>-1</sup> during the
+same interval.
+`r change_trend$continent[least_change_index]` stayed the most constant between the
+two time periods.
