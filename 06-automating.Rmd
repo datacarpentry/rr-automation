@@ -181,12 +181,12 @@ clean_figures <- function(path = "fig") {
 ```{r, purl=TRUE}
 ## add this to make.R
 make_ms <- function() {
-    rmarkdown::render("manuscript.Rmd", "pdf_document")
-    invisible(file.exists("manuscript.pdf"))
+    rmarkdown::render("manuscript.Rmd", "html_document")
+    invisible(file.exists("manuscript.html"))
 }
 
 clean_ms <- function() {
-    res <- file.remove("manuscript.pdf")
+    res <- file.remove("manuscript.html")
     invisible(res)
 }
 
