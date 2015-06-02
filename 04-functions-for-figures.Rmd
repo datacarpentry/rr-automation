@@ -56,7 +56,7 @@ fig_Nile <- function() {
 
 so this part gets a little prettier:
 
-```{r, eval=FALSE}
+```{r, purl=FALSE, eval=FALSE}
 pdf(file="nile_flow.pdf", width=6.5, height=4)
 fig_Nile()
 dev.off()
@@ -68,6 +68,8 @@ first and third lines...
 Let's create another function that will automate this process:
 
 ```{r, purl=TRUE}
+## An example of a function that generates a PDF file from a function
+## that creates a plot
 make_pdf <- function(expr,  filename, ..., verbose = TRUE) {
     if (verbose) {
         message("Creating: ", filename)
@@ -78,7 +80,7 @@ make_pdf <- function(expr,  filename, ..., verbose = TRUE) {
 }
 ```
 
-```{r}
+```{r, purl=FALSE}
 make_pdf(fig_Nile(), "nile_flow.pdf", width = 6.5, height = 4)
 ```
 

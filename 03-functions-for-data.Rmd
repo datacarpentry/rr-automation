@@ -13,7 +13,7 @@ gdp <- do.call("rbind", split_gdp_list)
 
 A basic function.
 
-```{r}
+```{r, purl=FALSE}
 gather_gdp_data <- function() {
     split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
     split_gdp_list <- lapply(split_gdp_files, read.csv)
@@ -104,6 +104,8 @@ Then in your knitr document, you can do:
 or maybe even:
 
 ```{r, eval=FALSE}
+## An example of the kind of code you could use to work with time-consuming
+## computations in R.
 if ( !file.exists("data-output/gdp.rds")) {
     gdp <- gather_gdp_data() ## long computation...
     make_rds(gdp, file="data-output/gdp.rds")

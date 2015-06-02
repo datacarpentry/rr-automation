@@ -17,6 +17,7 @@ Make sure you have `testthat` installed:
 Let's start by writing a first test:
 
 ```{r, purl=TRUE}
+## Example of using testthat to check that a function generating a dataset works as expected.
 test_that("my first test: correct number of countries",
           expect_equal(length(unique(gather_gdp_data()$country)),
                        length(list.files(path = "data-raw/", pattern="gdp-percapita\\.csv$")))
