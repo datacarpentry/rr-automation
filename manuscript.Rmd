@@ -1,5 +1,5 @@
 ```{r setup, echo = FALSE, results='hide', message = FALSE, warning = FALSE}
-opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE)
 invisible(sapply(list.files(path = "R", pattern = "R$", full.names = TRUE), source))
 ```
 
@@ -30,6 +30,7 @@ the five continents.
 gdp <- gather_gdp_data()
 latest_lifeExp <- get_latest_lifeExp(gdp)
 mean_lifeExp <- get_mean_lifeExp(gdp)
+coef_before_after <- get_coef_before_after(mean_lifeExp, break_year)
 ```
 
 
@@ -54,6 +55,13 @@ and `r break_year`-`r max(gdp$year)`.
 
 ```{r change_trend}
 plot_change_trend(mean_lifeExp, break_year)
+```
+
+```{r change-trend}
+change_trend <- coef_before_after %>% group_by(continent) %>% summarize(diff = trend[2] - trend[1])
+largest_neg_change_index <- which.min(change_trend$diff)
+largest_pos_change_index <- which.max(change_trend$diff)
+least_change_index <- which.min(abs(change_trend$diff))
 ```
 
 The largest negative change is observed for `r change_trend$continent[largest_neg_change_index]` with a
