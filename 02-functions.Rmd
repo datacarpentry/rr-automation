@@ -1,4 +1,4 @@
-## What is a functions?
+## What is a function?
 
 ```
 input --> function does something --> output
