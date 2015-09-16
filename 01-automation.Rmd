@@ -9,21 +9,16 @@
 
 ## Disclaimer
 
-Depending on your previous experience with knitr, it might seem too advanced. If
-you have never used knitr before this is a good opportunity to learn efficient
-practices right away.
+Depending on your previous experience with knitr, this lesson might seem too
+advanced as it provides ways to deal with annoyances you can face when you try
+to use knitr with a large project. If you have never used knitr before this is a
+good opportunity to learn efficient practices right away.
 
-Throughout, I will try to give two options: one that has a low activiation
-energy and that you'll be able to implement rapidly; and a better way of doing
-things that may require you to learn some other tools and techniques.
-
-There is nothing wrong with having your analysis entirely written as script
-without any functions, and it's certainly orders of magnitude better than not
-incorporating any reproducibility in your analysis. The goal of this session is
-to teach you some tips and tricks that will make your life easier with knitr if
-you are using it in the context of a research paper that involves multiple
-sources of raw data that are combined to create multiple intermediate datasets
-that are themselves combined to generate figures and tables.
+The main goal of this lesson is to teach you some tips and tricks that will make
+your life easier with knitr if you are using it in the context of a research
+project that involves multiple sources of raw data that are combined to create
+multiple intermediate datasets that are themselves combined to generate figures
+and tables.
 
 You certainly don't need to adopt all of these practices at once. Start
 small. Maybe with only one dataset, one figure first, and later learn how to use
@@ -34,7 +29,7 @@ able to translate into other components of your research. For instance, if you
 are interested in learning how to write a package in R, many of the advice and
 tools included in this lecture will greatly help you to get started. If you
 start using Make and Travis, you will learn some basics of UNIX and Linux which
-are general useful skills to have, if you are interested in analyzing large
+are general useful skills to have if you are interested in analyzing large
 datasets (e.g., set up runs on an HPC cluster).
 
 ## The issue(s)
@@ -49,31 +44,45 @@ modular framework in place where each section of your analysis can be
 self-contained so you don't depend on a linear script that will not reflect the
 complexity of your analysis.
 
+## A solution
+
 ![Functionalize all the things!](/img/functionalize_all_the_things.jpg)
 
-## Modularity
+In this lesson, I will demonstrate how to write your own functions to generate
+the clean version of your data, your figures, your tables and your
+manuscript. Having all the content of your manuscript as a function will greatly
+facilitate the upkeep of your manuscript as it forces to be organized. It also
+comes with some benefits:
+
+1. Modularity
+1. Less variables
+1. Better documentation
+1. Testing
+
+### Modularity
 
 By breaking down your analysis into functions, you end up with blocks of code
 that can interact and depend on each others in explicit ways. It allows you to
 avoid repeating yourself, and you will be able to re-use the functions you
 create for other projects more easily than if your paper only contains scripts.
 
-House of cards vs. house made of lego.
+<!-- House of cards vs. house made of lego. -->
 
-## Less variables to worry about to focus on the important stuff
+### Less variables to worry about to focus on the important stuff
 
-If your report only contains scripts, you are going to accumulate many variables
-in your document and you are going to have to worry about to avoid name
-conflicts among all these temporary variables that store intermediate versions
-of your datasets but won't need in your analysis. By putting everything into
-functions, these variables will be hidden from your main environment and you can
-focus on the important stuff: the inputs and the outputs of your workflow.
+If your manuscript only contains scripts, you are going to accumulate many
+variables in your document and you are going to have to worry about to avoid
+name conflicts among all these temporary variables that store intermediate
+versions of your datasets but won't need in your analysis. By putting everything
+into functions, these variables will be hidden from your global environment and
+you can focus on the important stuff: the inputs and the outputs of your
+workflow.
 
-By writing functions to get the variables, results, or figures, you make it
-clear in your analysis what is important, how your variables are related, which
-dataset depend on which one, etc.
+By writing functions to get the variables, results, or figures you need in your
+manuscript, the important pieces are obvious: you can tracks how your variables
+are related, which dataset depend on which one, etc.
 
-## Documenting your code
+### Documenting your code
 
 Ideally, your code should be written so that it's easy to understand and your
 intentions are clear. However, what might seem clear to you now might be clear
@@ -98,42 +107,59 @@ or the parameters on which your function, and therefore your results, depends
 on.
 
 The easiest way to document your code, is to add comments around your functions
-to explicitly indicate what each function is doing, what the arguments are
+to explicitly indicate the purpose of each function, what the arguments are
 supposed to be (class and format) and the kind of output you will get from it.
 
-You may also want to take advantage of roxygen, it's a format that allows the
-documentation of functions. This format is not very different from simple
-comments, you just need to add some keywords to define what will end up as
-different sections in what will become the help page for the function you are
-writing. This is not a strict requirement, and will not make your analysis
-necessarily more reproducible, but it will be useful down the road, if you think
-you will convert your manuscript into a package (see aside below).
+You may also want to take advantage of
+[roxygen](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html),
+it's a format that allows the documentation of functions, and it can easily be
+converted into the file formats used by R documentation. Writing for roxygen is
+not very different from simple comments, you just need to add some keywords to
+define what will end up in the different sections of the help files. This is not
+a strict requirement, and will it not make your analysis more reproducible, but
+it will be useful down the road if you think you will convert your manuscript
+into a package (see aside below). RStudio makes it easy to write roxygen. Once
+you have started writing a function, in the menu choose `Code > Insert Roxygen
+Skeleton` or type `Ctrl + Alt + Shift + R` on your keyboard.
 
 When documenting your functions, it important to not only document the kind of
 input your function takes, but also the format and structure of the output.
 
-## Testing
+### Testing
 
-When you start writing a lot of code for your paper, it could become easier to
-introduce bugs or that the data set doesn't include all the data it should. If
-your bug breaks something in your analysis, you might be able to find it easily,
-but you may also introduce "silent" bugs.
+When you start writing a lot of code for your paper, it becomes easier to
+introduce bugs. If your analysis relies on data that gets updated often, you may
+want to make sure that all the columns are there, and that they don't include
+data they should not.
+
+If these issues break something in your analysis, you might be able to find it
+easily, but more often that not, these issues might produce subtle differences
+in your results that you may not be able to detect.
 
 If all your code is made up of functions, then you can control the input and
 test for the output. It is something that would be difficult if not impossible
 to do if all your analysis is in the form of a long script.
 
-The package testthat provides a powerful and easy to use framework to build
-tests for your code.
+The package
+[testthat](https://cran.r-project.org/web/packages/testthat/index.htm) provides
+a powerful and easy-to-use framework to build tests for your functions.
 
 > ### Should you convert your manuscript into a package?
 >
-> Pros: common format, allows to leverage the infrastructure for packages
+> If your manuscript only uses functions, that they are properly documented and
+> that you have tests for them, not only you did most of the work needed to have
+> a functional R package, but you could be in a better position than most R packages.
+>
+> * Pros: common format, allows you to leverage the infrastructure for packages
 > (tests, all functions are properly documented), can make sure it will be fully
-> cross-platform Cons: no good place for the manuscript, you have to put the
+> cross-platform.
+>
+> * Cons: no good place for the manuscript, you have to put the
 > data in weird spots, you may have to dissociate code for functions and code
-> for analysis Bottom line: it really depends on your type of paper, how much
-> code there is in it and whether others might end up re-using it. It's not
+> for analysis.
+>
+> * Bottom line: it really depends on your type of paper, how much
+> code there is in it, and whether others might end up re-using it. It's not
 > because your manuscript follows the conventions of a package that you need to
 > submit to CRAN.
 
@@ -145,8 +171,39 @@ Today we are going to work on functionalizing a knitr document that is more
 complex than what we have seen so far but not quite as complex as a "real"
 research document could look like.
 
-Show the starting point:  one file per country in the data-raw folder
+# For instructors
 
-Explain motivation: change of life expectancy by continent
+1. Show the starting point (see content of `example-manuscript` folder):
+   - one file per country in the `data-raw` folder
 
-Go through details of the document.
+1. Explain motivation of the manuscript:
+- explore change in life expectancy by continent across two time periods
+
+1. Ask participants to open `manuscript-inline.Rmd` and make sure they can all
+compile to HTML from within RStudio
+
+1. Present analysis and results in a little more detail:
+  - in the manuscript, we look at minimum and maximum life expectancy summarized
+    across continents, draw a plot of the change in life expectancy through time
+    for each continent, compare the rate of change in life expectancy (linear
+    model) between lowest year and a breaking point (1985 by default, can be
+    changed by participants later); and breaking point in latest year. Notice
+    that rate of change in life expectancy has been decreasing for all continent
+    (particularly noticeable for Africa), except for Oceania where it has
+    accelerated.
+
+1. Go through details of the document `manuscript-inline.Rmd` to explain its
+   structure and highlight:
+   - there is many more lines of code than text and that most of the code is
+     actually duplicated
+   - show that changing the variable `break_year` changes all the numbers, and
+   graphs in the manuscript
+   - show that there are chunks that:
+	 * prepare the data (convert from raw to workable, create the intermediate
+     datasets the graphs are based on)
+	 * make plots
+	 * fit linear models to the data and extract summary statistics from it
+
+The code is pretty advanced for participants not too familiar with R. It's OK if
+they don't understand it all. They should however have a sense for what each
+chunk does and they fit together.
