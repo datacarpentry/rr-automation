@@ -45,6 +45,12 @@ convert_fahr <- function(temp, to) {
 }
 ```
 
+> ### Instructor notes
+>
+> Demonstrate default values: show how convert_fahr() doesn't work. Change
+>function to have default value for the temperature (e.g., `temp = 0`) and show
+>how now `convert_fahr()` works. Use this to expand on using `match.arg` below.
+
 With functions you can easily control the format of the input and avoid the
 chances for typos or other small mistakes.
 
