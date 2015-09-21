@@ -1,8 +1,11 @@
 # Functions for data
 
 Now that we know how to write functions, we can use the concept to preparing our
-data sets for analysis and generating the intermediary data files to share with
-our collaborators.
+data sets for analysis, generating the intermediary data files, and exporting
+them to CSV so we can for instance share them with our collaborators.
+
+
+Let's start with the chunk from the manuscript:
 
 ```{r, purl=TRUE}
 ## Gathering all the data files
@@ -11,7 +14,9 @@ split_gdp_list <- lapply(split_gdp_files, read.csv)
 gdp <- do.call("rbind", split_gdp_list)
 ```
 
-A basic function.
+The simplest function we can write from this chunk is simply to enclose these
+lines of code inside curly brackets and not forgetting to return the `gdp`
+variable on the last line:
 
 ```{r, purl=FALSE}
 gather_gdp_data <- function() {
@@ -22,11 +27,19 @@ gather_gdp_data <- function() {
 }
 ```
 
-We can make it a little more general, so we could re-use for another project
-down the road:
+> ## Instructor note
+>
+> Demonstrate that the function works (it returns a data.frame with all
+> countries combined).
+
+We can make this function more general by using the folder where the files are
+stored and the pattern we use as arguments (`path` and `pattern`
+respectively). This way, we could re-use this function for another project where
+a similar operation (combining many CSV files into a single data.frame) would be
+needed.
 
 ```{r, purl=FALSE}
-gather_data <- function(path = "data-raw", pattern = "gdp-percapita\\.csv") {
+gather_data <- function(path = "data-raw", pattern = "gdp-percapita\\.csv$") {
     split_files <- list.files(path = path, pattern = pattern, full.names = TRUE)
     split_list <- lapply(split_gdp_files, read.csv)
     gdp <- do.call("rbind", split_gdp_list)
@@ -35,6 +48,7 @@ gather_data <- function(path = "data-raw", pattern = "gdp-percapita\\.csv") {
 ```
 
 > ## Caveats
+>
 > - the code here is pretty simple because we know that all datasets have
 >   exactly the same column, but in a real life example, we might way to add
 >   additional checks to ensure that we won't be introducing any issues.
@@ -50,6 +64,17 @@ data sets. This might come handy if you want to send your intermediate datasets
 to your collaborators or if you want to inspect more closely that everything is
 working as it should.
 
+This function takes a data frame and make a CSV file out of it.
+
+> ### Instructor notes
+>
+> Demonstrate how to write this function. Start by just typing the write.csv
+> line and expends from there. We use `row.names=FALSE` because we don't want
+> them in the output, `verbose` just write something at the terminal which will
+> be useful when we are building the full manuscript to keep track of
+> progress. You may want to leave out the `...` depending on the participants'
+> level of comfort with R code.
+
 ```{r, purl=FALSE}
 make_csv <- function(obj, file, ...,  verbose = TRUE) {
     if (verbose) {
@@ -59,25 +84,38 @@ make_csv <- function(obj, file, ...,  verbose = TRUE) {
 }
 ```
 
+Now, we can combine the two functions we just wrote (`make_csv` and
+`gather_data`) to generate a CSV file that contains the data from all countries:
+
+```{r, purl=FALSE}
+gdp_data <- gather_data()
+make_csv(gdp_data, file = "data-output/gdp.csv")
+```
+
 ### Your turn
 
 Transform into functions these two pieces of code.
 
 ```{r, purl=TRUE}
 ## Turn this into a function called get_mean_lifeExp
-mean_lifeExp_by_cont <- gdp %>% group_by(continent, year) %>%
-  summarize(mean_lifeExp = mean(lifeExp)) %>% as.data.frame
+mean_lifeExp_by_cont <- gdp %>%
+    group_by(continent, year) %>%
+    summarize(mean_lifeExp = mean(lifeExp)) %>%
+    as.data.frame
 ```
 
 ```{r, purl=TRUE}
 ## Turn this into a function called get_latest_lifeExp
-latest_lifeExp <- gdp %>% filter(year == max(gdp$year)) %>%
-      group_by(continent) %>%
-      summarize(latest_lifeExp = mean(lifeExp)) %>%
-      as.data.frame
+latest_lifeExp <- gdp %>%
+    filter(year == max(gdp$year)) %>%
+    group_by(continent) %>%
+    summarize(latest_lifeExp = mean(lifeExp)) %>%
+    as.data.frame
 ```
 
 ## Long computations
+
+[aside: talk about it if time permits]
 
 Caching is available in knitr but it can be pretty fragile. For instance, the
 caching is only based on whether the code in your chunk changes and doesn't
