@@ -9,13 +9,16 @@ split_gdp_files <- list.files(path = "data-raw", pattern = "gdp-percapita\\.csv$
 split_gdp_list <- lapply(split_gdp_files, read.csv)
 gdp <- do.call("rbind", split_gdp_list)
 ## Turn this into a function called get_mean_lifeExp
-mean_lifeExp_by_cont <- gdp %>% group_by(continent, year) %>%
-  summarize(mean_lifeExp = mean(lifeExp)) %>% as.data.frame
+mean_lifeExp_by_cont <- gdp %>%
+    group_by(continent, year) %>%
+    summarize(mean_lifeExp = mean(lifeExp)) %>%
+    as.data.frame
 ## Turn this into a function called get_latest_lifeExp
-latest_lifeExp <- gdp %>% filter(year == max(gdp$year)) %>%
-      group_by(continent) %>%
-      summarize(latest_lifeExp = mean(lifeExp)) %>%
-      as.data.frame
+latest_lifeExp <- gdp %>%
+    filter(year == max(gdp$year)) %>%
+    group_by(continent) %>%
+    summarize(latest_lifeExp = mean(lifeExp)) %>%
+    as.data.frame
 ## If you need to save an R object to avoid the repetition of long computations
 make_rds <- function(obj, file, ..., verbose = TRUE) {
     if (verbose) {
@@ -33,17 +36,18 @@ make_rds <- function(obj, file, ..., verbose = TRUE) {
 ## gdp <- readRDS(file="data-output/gdp.rds")
 
 
-par(mfrow=c(1, 2))
-plot(Nile)
-abline(h = mean(Nile), col = "red", lwd = 3, lty = 2)
-yrs <- attr(Nile, "tsp")
-fit <- loess(Nile ~ seq(yrs[1], yrs[2], 1))
-lines(seq(yrs[1], yrs[2]), fitted(fit), col = "blue", lwd = 2)
-hist(Nile)
-abline(v = mean(Nile), col = "red",  lwd = 3, lty = 2)
+gdp <- read.csv(file="data-output/gdp.csv")
+
+gdp %>%
+    filter(country %in% c("United States", "France", "Zimbabwe", "South Africa")) %>%
+    ggplot(aes(x = year, y = lifeExp, color = country)) +
+    geom_point(aes(size = gdpPercap)) + geom_line() +
+    geom_vline(xintercept = year_break, color = "red", linetype = 2)
+
 ## An example of a function that generates a PDF file from a function
 ## that creates a plot
-make_pdf <- function(expr,  filename, ..., verbose = TRUE) {
+## See http://nicercode.github.io/blog/2013-07-09-figure-functions/
+make_pdf <- function(expr, filename, ..., verbose = TRUE) {
     if (verbose) {
         message("Creating: ", filename)
     }
@@ -53,16 +57,17 @@ make_pdf <- function(expr,  filename, ..., verbose = TRUE) {
 }
 ## Create your own function that generates a plot and use it with make_pdf.
 
-## If you are looking for some inspiration, the code below compares the change
-## in life expectancy for Finland and Japan.
+## If you are looking for some inspiration (or not too familiar with R
+## syntax), the code below compares the relationship between GDP and
+## life expectancy for Japan and Finland.
+
 finland <- read.csv(file = "data-raw/Finland-gdp-percapita.csv")
-japan <- read.csv(file="data-raw/Japan-gdp-percapita.csv")
-plot(lifeExp ~ gdpPercap, data=finland, col="red")
-fit_finland <- lm(lifeExp ~ gdpPercap, data=finland)
-abline(fit_finland, col="red", lwd=3, lty=2)
-points(japan$gdpPercap, japan$lifeExp, pch=2, col="blue")
-fit_japan <- lm(lifeExp ~ gdpPercap, data=japan)
-abline(fit_japan, col="blue", lwd=3, lty=2)
+japan <- read.csv(file = "data-raw/Japan-gdp-percapita.csv")
+comp_finland_japan <- rbind(finland, japan)
+
+ggplot(comp_finland_japan, aes(x = gdpPercap, y = lifeExp, color = country)) +
+   geom_point() +
+   stat_smooth(method = "lm", se = FALSE)
 
 
 
@@ -73,6 +78,10 @@ test_that("my first test: correct number of countries",
           )
 
 
+## add this to make.R
+make_tests <- function() {
+    test_dir("tests/")
+}
 ## add this to R/figure.R
 plot_summary_lifeExp_by_continent <- function(mean_lifeExp) {
     ggplot(mean_lifeExp, aes(x = year, y = mean_lifeExp, colour = continent)) +
@@ -103,25 +112,10 @@ make_change_trend <- function(path = "fig", year = 1980, ...) {
     make_pdf(print(p), file = file.path(path, "change_trend.pdf"), ...)
 }
 ## -----
-## add this to make.R
-make_data <- function(path = "data-output", verbose = TRUE) {
-    make_gdp_data(path)
-    make_mean_lifeExp_data()
-}
-
-make_gdp_data <- function(path = "data-output") {
-    gdp <- gather_gdp_data()
-    make_csv(gdp, file = file.path(path, "gdp.csv"))
-}
-
-make_mean_lifeExp_data <- function(path = "data-output") {
-    gdp <- gather_gdp_data()
-    make_csv(get_mean_lifeExp(gdp), file = file.path(path, "mean_lifeExp.csv"))
-}
-## -----
 ## add this to R/data.R
 gather_gdp_data <- function(path = "data-raw") {
     split_gdp_files <- list.files(path = path, pattern = "gdp-percapita\\.csv$", full.names = TRUE)
+
     split_gdp_list <- lapply(split_gdp_files, read.csv)
     gdp <- do.call("rbind", split_gdp_list)
     gdp
@@ -160,6 +154,22 @@ get_coef_before_after <- function(mean_lifeExp, year_break) {
 }
 ## -----
 ## add this to make.R
+make_data <- function(path = "data-output", verbose = TRUE) {
+    make_gdp_data(path)
+    make_mean_lifeExp_data()
+}
+
+make_gdp_data <- function(path = "data-output") {
+    gdp <- gather_gdp_data()
+    make_csv(gdp, file = file.path(path, "gdp.csv"))
+}
+
+make_mean_lifeExp_data <- function(path = "data-output") {
+    gdp <- gather_gdp_data()
+    make_csv(get_mean_lifeExp(gdp), file = file.path(path, "mean_lifeExp.csv"))
+}
+## -----
+## add this to make.R
 clean_data <- function(path = "data-output") {
     to_rm <- list.files(path = path, pattern = "csv$", full.names = TRUE)
     res <- file.remove(to_rm)
@@ -174,12 +184,12 @@ clean_figures <- function(path = "fig") {
 ## -----
 ## add this to make.R
 make_ms <- function() {
-    rmarkdown::render("manuscript.Rmd", "pdf_document")
-    invisible(file.exists("manuscript.pdf"))
+    rmarkdown::render("manuscript.Rmd", "html_document")
+    invisible(file.exists("manuscript.html"))
 }
 
 clean_ms <- function() {
-    res <- file.remove("manuscript.pdf")
+    res <- file.remove("manuscript.html")
     invisible(res)
 }
 
