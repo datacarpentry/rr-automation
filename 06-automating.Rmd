@@ -1,6 +1,16 @@
 
 # Putting it all together and getting organized
 
+> ### Instructor notes
+>
+> The goal of this last part is to put together all the pieces started in the
+>previous lesson to build a manuscript that is fully automated. Most of the
+>files are already provided but they are missing the key pieces that make
+>everything work. In this lesson, participants need to copy and paste the chunks
+>of code listed in the appropriate files. At the end, their directory should
+>look like the content of https://github.com/fmichonneau/teaching-automation
+
+
 ```
 |
 `-- data-raw/
@@ -38,9 +48,10 @@ test_dir("tests/")
 
 Let's turn it into a function, so we'll be able to add some additional
 functionalities to it a little later. We are also going to save it at the root
-of our working directory in a file called `make.R`:
+of our working directory in the file called `make.R`:
 
-```{r, purl=FALSE}
+```{r, purl=TRUE}
+## add this to make.R
 make_tests <- function() {
     test_dir("tests/")
 }
@@ -48,6 +59,8 @@ make_tests <- function() {
 
 
 ## Figures
+
+This is the code to generate the two figures in the manuscript:
 
 ```{r, purl=TRUE}
 ## add this to R/figure.R
@@ -64,6 +77,7 @@ plot_change_trend <- function(mean_lifeExp, year_break) {
 ## -----
 ```
 
+This is the code to generate PDF files from figures, and the two figures as PDF files:
 
 ```{r, purl=TRUE}
 ## add this to make.R
@@ -88,29 +102,13 @@ make_change_trend <- function(path = "fig", year = 1980, ...) {
 
 ## Data
 
-```{r, purl=TRUE}
-## add this to make.R
-make_data <- function(path = "data-output", verbose = TRUE) {
-    make_gdp_data(path)
-    make_mean_lifeExp_data()
-}
-
-make_gdp_data <- function(path = "data-output") {
-    gdp <- gather_gdp_data()
-    make_csv(gdp, file = file.path(path, "gdp.csv"))
-}
-
-make_mean_lifeExp_data <- function(path = "data-output") {
-    gdp <- gather_gdp_data()
-    make_csv(get_mean_lifeExp(gdp), file = file.path(path, "mean_lifeExp.csv"))
-}
-## -----
-```
+This is the code that generates the intermediate datasets:
 
 ```{r, purl=TRUE}
 ## add this to R/data.R
 gather_gdp_data <- function(path = "data-raw") {
     split_gdp_files <- list.files(path = path, pattern = "gdp-percapita\\.csv$", full.names = TRUE)
+
     split_gdp_list <- lapply(split_gdp_files, read.csv)
     gdp <- do.call("rbind", split_gdp_list)
     gdp
@@ -150,11 +148,36 @@ get_coef_before_after <- function(mean_lifeExp, year_break) {
 ## -----
 ```
 
+This is the code to generate the CSV files that contain the intermediate
+datasets that are needed to draw the figures. The function `make_data` generates
+both datasets at once.
+
+```{r, purl=TRUE}
+## add this to make.R
+make_data <- function(path = "data-output", verbose = TRUE) {
+    make_gdp_data(path)
+    make_mean_lifeExp_data()
+}
+
+make_gdp_data <- function(path = "data-output") {
+    gdp <- gather_gdp_data()
+    make_csv(gdp, file = file.path(path, "gdp.csv"))
+}
+
+make_mean_lifeExp_data <- function(path = "data-output") {
+    gdp <- gather_gdp_data()
+    make_csv(get_mean_lifeExp(gdp), file = file.path(path, "mean_lifeExp.csv"))
+}
+## -----
+```
+
+
+
 ## Cleaning
 
 The only way to ensure that your analysis is reproducible is to delete all the
 intermediate and final products to make sure your functions can recreate
-everything.
+everything from the raw data and your code.
 
 Having the figures and the intermediate data files isolated in their own folders
 in your working directory will allow you to make sure you only delete these
@@ -177,6 +200,8 @@ clean_figures <- function(path = "fig") {
 ```
 
 ## Make everything
+
+These are wrapper functions to generate/delete everything:
 
 ```{r, purl=TRUE}
 ## add this to make.R
