@@ -25,8 +25,7 @@ gdp %>%
     filter(country %in% c("United States", "France", "Zimbabwe", "South Africa")) %>%
     ggplot(aes(x = year, y = lifeExp, color = country)) +
     geom_point(aes(size = gdpPercap)) + geom_line() +
-    geom_vline(xintercept = year_break, color = "red", linetype = 2)
-
+    geom_vline(xintercept = 1985, color = "red", linetype = 2)
 ```
 
 ## Writing to PDF
