@@ -1,9 +1,8 @@
 # Functions for data
 
-Now that we know how to write functions, we can use the concept to preparing our
+Now that we know how to write functions, we can use this concept for preparing our
 data sets for analysis, generating the intermediary data files, and exporting
-them to CSV so we can for instance share them with our collaborators.
-
+them to CSV so that we can, for instance, share them with our collaborators.
 
 Let's start with the chunk from the manuscript:
 
@@ -35,7 +34,7 @@ gather_gdp_data <- function() {
 We can make this function more general by using the folder where the files are
 stored and the pattern we use as arguments (`path` and `pattern`
 respectively). This way, we could re-use this function for another project where
-a similar operation (combining many CSV files into a single data.frame) would be
+a similar operation (combining many CSV files into a single `data.frame`) would be
 needed.
 
 ```{r, purl=FALSE}
