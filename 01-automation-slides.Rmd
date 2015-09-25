@@ -222,3 +222,5 @@ all our data is included in the analysis.
 Today we are going to work on functionalizing a knitr document that is more
 complex than what we have seen so far but not quite as complex as a "real"
 research document could look like.
+
+Let's take a look at `example-manuscript` folder...
