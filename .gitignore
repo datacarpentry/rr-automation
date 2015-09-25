@@ -13,3 +13,5 @@
 /example-manuscript/manuscript-inline.html
 /example-manuscript/tests/
 /Makefile~
+.Rproj.user
+.Rproj
