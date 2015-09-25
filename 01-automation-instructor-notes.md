@@ -1,7 +1,5 @@
 # 01-automation Instructor notes
 
-For instructors
-
 1. Show the starting point (see content of `example-manuscript` folder):
    - one file per country in the `data-raw` folder
 
@@ -19,7 +17,7 @@ compile to HTML from within RStudio
    - there is many more lines of code than text and that most of the code is
      actually duplicated
    - show that changing the variable `break_year` changes all the numbers, and
-   graphs in the manuscript
+     graphs in the manuscript
    - show that there are chunks that:
      * prepare the data (convert from raw to workable, create the intermediate
      datasets the graphs are based on)
