@@ -8,9 +8,6 @@ output:
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(eval = FALSE)
-library(dplyr)
-library(ggplot2)
-library(mosaic)
 ```
 
 ## Writing functions to generate figures {.smaller}
