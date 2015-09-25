@@ -135,11 +135,9 @@
     res
 }</pre>
 
-<blockquote>
-<h3>Instructor notes</h3>
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Making your functions more versatile and robust</h2></hgroup><article  id="making-your-functions-more-versatile-and-robust">
 
-<p>Demonstrate default values: show how convert_fahr() doesn&#39;t work. Change function to have default value for the temperature (e.g., <code>temp = 0</code>) and show how now <code>convert_fahr()</code> works. Use this to expand on using <code>match.arg</code> below.</p>
-</blockquote>
+</article></slide><slide class=''><hgroup><h2>Control the format of input</h2></hgroup><article  id="control-the-format-of-input" class="smaller">
 
 <p>With functions you can easily control the format of the input and avoid the chances for typos or other small mistakes.</p>
 
@@ -152,6 +150,8 @@
     }
     res
 }</pre>
+
+</article></slide><slide class=''><hgroup><h2>Make your functions expendable</h2></hgroup><article  id="make-your-functions-expendable" class="smaller">
 
 <p>Let&#39;s refactor this function into something even better that will allow you to easily expend the <code>convert_fahr</code> function to other units:</p>
 
@@ -175,17 +175,13 @@ convert_fahr &lt;- function(temp, to = c(&quot;celsius&quot;, &quot;kelvin&quot;
 
 <p>Your intentions are clear, everything is self contained, you can easily debug, test and document each of the steps involved.</p>
 
-<blockquote>
-</article></slide><slide class=''><hgroup><h2>Instructor note</h2></hgroup><article  id="instructor-note">
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Your turn!</h2></hgroup><article  id="your-turn">
 
-<p>Demonstrate scoping here. Show that there is no variable <code>to</code>, <code>temp</code> or <code>res</code> in the global environment. Then assign a value to the variable <code>to</code> or <code>res</code> and show that it doesn&#39;t affect the behavior of the function.</p>
-</blockquote>
-
-<h3>Challenge</h3>
+</article></slide><slide class=''><hgroup><h2>Challenge</h2></hgroup><article  id="challenge">
 
 <p>Write a function that converts pounds in kilograms (divides by 2.2).</p>
 
-<p>Stretch goal: and in grams.</p></article></slide>
+<p><em>Stretch goal:</em> and in grams.</p></article></slide>
 
 
   <slide class="backdrop"></slide>

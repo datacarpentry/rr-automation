@@ -58,13 +58,9 @@ convert_fahr <- function(temp, to) {
 }
 ```
 
+# Making your functions more versatile and robust
 
-
-> ### Instructor notes
->
-> Demonstrate default values: show how convert_fahr() doesn't work. Change
->function to have default value for the temperature (e.g., `temp = 0`) and show
->how now `convert_fahr()` works. Use this to expand on using `match.arg` below.
+## Control the format of input {.smaller}
 
 With functions you can easily control the format of the input and avoid the
 chances for typos or other small mistakes.
@@ -80,6 +76,8 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
     res
 }
 ```
+
+## Make your functions expendable {.smaller}
 
 Let's refactor this function into something even better that will allow you to
 easily expend the `convert_fahr` function to other units:
@@ -107,14 +105,10 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
 Your intentions are clear, everything is self contained, you can easily debug,
 test and document each of the steps involved.
 
-> ## Instructor note
->
-> Demonstrate scoping here. Show that there is no variable `to`, `temp` or
->`res` in the global environment. Then assign a value to the variable `to` or
->`res` and show that it doesn't affect the behavior of the function.
+# Your turn!
 
-### Challenge
+## Challenge
 
 Write a function that converts pounds in kilograms (divides by 2.2).
 
-Stretch goal: and in grams.
+*Stretch goal:* and in grams.
