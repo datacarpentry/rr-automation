@@ -116,7 +116,7 @@ a CSV file that contains the data from all countries:
 
 ```{r, eval=FALSE}
 gdp_data <- gather_data()
-make_csv(gdp_data, path = "data_output", file = "gdp.csv", verbose = TRUE)
+make_csv(gdp_data, path = "data-output", file = "gdp.csv", verbose = TRUE)
 ```
 
 <br>
