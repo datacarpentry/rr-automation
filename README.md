@@ -1,17 +1,7 @@
 rr-automation
 =============
 
-## About this lesson
-
-This lesson was designed during the Reproducible Science Curriculum Hackathon
-that took place in Durham, NC in December 2014 by:
-
-
-* Kim Gilbert ([@kjgilbert](https://github.com/kjgilbert))
-* Matt Pennell ([@mwpennell](https://github.com/mwpennell))
-* **François Michonneau** ([@fmichonneau](https://github.com/fmichonneau))
-
-The content was written by François Michonneau.
+This lesson teaches some tips and tricks that will make life easier with R Markdown if one is using it in the context of a typical research project, which will likely involve multiple sources of raw data that are then combined to create multiple intermediate datasets which then get combined to generate figures and tables.
 
 ## Before the lesson starts
 
@@ -27,3 +17,12 @@ The content was written by François Michonneau.
   `example-manuscript` folder from this repository.
 
 * Explain what the handout file contains
+
+## People and credits
+
+This lesson was first created at the [1. Reproducible Science Curriculum Hackathon]. The corresponding author is **François Michonneau** ([@fmichonneau]). See the commit log for other contributors.
+
+Please post feedback and issues with the lesson on the repository's issue tracker. For instructor questions about teaching this lesson, you can also contact the corresponding author directly.
+
+[@fmichonneau]: https://github.com/fmichonneau
+[1. Reproducible Science Curriculum Hackathon]: https://github.com/Reproducible-Science-Curriculum/Reproducible-Science-Hackathon-Dec-08-2014
