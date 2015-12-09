@@ -1,7 +1,7 @@
 rr-automation
 =============
 
-## About this lesson
+This lesson teaches some tips and tricks that will make life easier with R Markdown if one is using it in the context of a typical research project, which will likely involve multiple sources of raw data that are then combined to create multiple intermediate datasets which then get combined to generate figures and tables.
 
 ## Before the lesson starts
 
