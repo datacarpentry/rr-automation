@@ -39,3 +39,13 @@ To do this, we compare the linear trend between two time periods. The cutoff
 year for these time period is controlled by a variable in the manuscript that
 participants can change (and should change so they can witness how the numbers
 and graphs get updated).
+
+## Teaching Logistics
+
+When teaching this material previously, I have found that for the first part of
+the lesson, students can write their code "linearly" in a single script
+file. Thus, they don't have to worry (lower cognitive load) about file
+organization, and focus on the material being covered.
+
+Starting at lesson 06, participants can follow the instructions and start
+putting the bits of codes in the different files.
