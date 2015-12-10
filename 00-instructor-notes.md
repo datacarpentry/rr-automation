@@ -3,11 +3,10 @@
 These notes intend to describe the motivation, and the overall content of this
 repository to help instructors teach this lesson.
 
-The main goal of this lesson is to teach participants how turning each piece of
-their analysis into a function would make their life easier by (1) making clear
-the origin of each dataset used in the analysis; (2) making easier to generate
+The main goal of this lesson is to teach participants how to modularize their analysis by organizing their code in functions. This (1)makes clear
+the origin of each dataset used in the analysis; (2) makes it easier to generate
 the intermediate pieces of the manuscript to share with their colleagues; (3)
-taking advantage of the infrastructure already available to write documentation
+takes advantage of the infrastructure already available to write documentation
 and tests for the code.
 
 The lesson is centered around transforming a manuscript that is written such
@@ -24,7 +23,7 @@ numbers/graphs would be updated automatically.
 
 ## Presentation of the manuscript
 
-The manuscript was written to include sufficiently complicated that it makes the
+The manuscript was written to be sufficiently complicated that it makes the
 automation worthwhile and necessitates intermediate datasets to be able to
 obtain the results.
 

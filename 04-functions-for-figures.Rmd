@@ -86,8 +86,8 @@ make_pdf(fig_gdp_comparison(), "fig_gdp_comparison.pdf", width = 8, height = 6)
 
 We can even improve our `fig_gdp_commparison` to make it a little more
 general. For instance, we can add arguments such that the vertical line isn't
-always at 1985 but is specified. We can use the same approach for the list of
-countries to be included in the plot:
+always at 1985 but can be specified by the user. We can use the same approach
+for the list of countries to be included in the plot:
 
 ```{r, purl=FALSE, eval=FALSE}
 fig_gdp_comparison <- function(year_break = 1985,

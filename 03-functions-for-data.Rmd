@@ -26,11 +26,6 @@ gather_gdp_data <- function() {
 }
 ```
 
-> ## Instructor note
->
-> Demonstrate that the function works (it returns a data.frame with all
-> countries combined).
-
 We can make this function more general by using the folder where the files are
 stored and the pattern we use as arguments (`path` and `pattern`
 respectively). This way, we could re-use this function for another project where
@@ -46,7 +41,7 @@ gather_data <- function(path = "data-raw", pattern = "gdp-percapita\\.csv$") {
 }
 ```
 
-> ## Caveats
+> ## A word of warning
 >
 > - the code here is pretty simple because we know that all datasets have
 >   exactly the same column, but in a real life example, we might way to add
@@ -65,14 +60,6 @@ working as it should.
 
 This function takes a data frame and make a CSV file out of it.
 
-> ### Instructor notes
->
-> Demonstrate how to write this function. Start by just typing the write.csv
-> line and expends from there. We use `row.names=FALSE` because we don't want
-> them in the output, `verbose` just write something at the terminal which will
-> be useful when we are building the full manuscript to keep track of
-> progress. You may want to leave out the `...` depending on the participants'
-> level of comfort with R code.
 
 ```{r, purl=FALSE}
 make_csv <- function(obj, file, ...,  verbose = TRUE) {
