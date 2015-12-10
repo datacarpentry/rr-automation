@@ -16,15 +16,13 @@ output:
 2015-05-03)
 </center>
 
-# Disclaimer
 
-## Level of lesson
+## Prerequisites
 
-- Depending on your previous experience with R Markdown, this lesson
-might seem too advanced as it provides ways to deal with annoyances you 
-can face when you try to use it within a large project. 
+- Some previous exposure to R Markdown is recommended. If you have not used R Markdown before,  this lesson
+might seem too advanced as it provides ways to deal with annoyances you can face when you try to use it within a large project. 
 
-- If you have never used R Markdown before this is a good opportunity to learn 
+- On the other hand, if you have never used R Markdown before this is a good opportunity to learn 
 efficient practices right away.
 
 ## Goals
