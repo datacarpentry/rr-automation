@@ -10,7 +10,14 @@
 compile to HTML from within RStudio
 
 1. Present analysis and results in a little more detail:
-  - in the manuscript, we look at minimum and maximum life expectancy summarized across continents, draw a plot of the change in life expectancy through time for each continent, compare the rate of change in life expectancy (linear model) between lowest year and a breaking point (1985 by default, can be changed by participants later); and breaking point in latest year. Notice that rate of change in life expectancy has been decreasing for all continent (particularly noticeable for Africa), except for Oceania where it has accelerated.
+  - in the manuscript, we look at minimum and maximum life expectancy summarized
+    across continents, draw a plot of the change in life expectancy through time
+    for each continent, compare the rate of change in life expectancy (linear
+    model) between lowest year and a breaking point (1985 by default, can be
+    changed by participants later); and breaking point in latest year. Notice
+    that rate of change in life expectancy has been decreasing for all continent
+    (particularly noticeable for Africa), except for Oceania where it has
+    accelerated.
 
 1. Go through details of the document `manuscript-inline.Rmd` to explain its
    structure and highlight:
@@ -24,6 +31,6 @@ compile to HTML from within RStudio
      * make plots
      * fit linear models to the data and extract summary statistics from it
 
-The code is pretty advanced for participants not too familiar with R. It's OK 
-if they don't understand it all. They should however have a sense for what 
+The code is pretty advanced for participants not too familiar with R. It's OK
+if they don't understand it all. They should however have a sense for what
 each chunk does and they fit together.
