@@ -14,18 +14,20 @@ output:
 input --> function does something --> output
 ```
 
-- **Main benefit:** Avoid repetition.
-
-- When you write code you should aim for laziness. 
+- **Main benefit:** Avoid repetition and increase reusability. When you write code you should be lazy and make your life as easy as possible! 
     - If you are about to copy a piece of code 5 times and just change a variable 
     in each instance, you are better off converting it into a function. 
     - In general, never repeat yourself when you write code, it's called the 
     *DRY* (Don't Repeat Yourself) principle.
 
-- **Another advantage:** Self contained code such that any variable you
-create inside a function will not be exported into your global environment.
+- **Another advantage:** Easier management of variables (and, behind the scenes, better use of memory). 
+   - You can create local and global variables which helps you securely isolate variables (for example, containing values, results or bits of data) and so that they will not be randomly altered.
+
+
 
 ## How to write functions in R?
+
+Without using functions, you would have to redo the calculations each time:
 
 ```{r, purl=FALSE}
 ## Fahrenheit to Celsius
@@ -46,7 +48,7 @@ fahr_to_celsius <- function(temp) {
 
 Don't forget to re-evaluate your function, after modifying it.
 
-A little better:
+We can extend our function to be more general:
 
 ```{r, purl=FALSE}
 convert_fahr <- function(temp, to) {
@@ -80,7 +82,7 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
 ## Make your functions expendable {.smaller}
 
 Let's refactor this function into something even better that will allow you to
-easily expend the `convert_fahr` function to other units:
+easily expand the `convert_fahr` function to other units:
 
 ```{r, purl=FALSE}
 fahr_to_celsius <- function(temp) {
