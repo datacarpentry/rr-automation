@@ -108,7 +108,8 @@ Thinking about these issues beforehand (and communicating about them with your c
 In this lesson, we are going to functionalize a `knitr` document that is more complex than what we have seen so far but not quite as complex as a "real" research document could look like. For this project, we will employ the `ProjectTemplate` package and apply a standardized set of directories to our reserch projects.
 
 To run `ProjectTemplate` execute the following code:
-```{r PT_exe, eval = FALSE}
+
+```r
 library("ProjectTemplate")
 create.project("Name of Project")
 ```

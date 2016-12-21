@@ -13,7 +13,7 @@
 >  - `testthat` - for unit testing.
 >  - `ProjectTemplate` - to establish standard directory structure.
 >  - `rmarkdown` and `knitr` (in RStudio pushing the knit HTML button the first time will prompt to have these packages installed). 
->     - **Note** -  you may need to tell `RStudio` to use `knitr`, do this by: `Preferences` > `Sweave` find "weave Rnw files using:" and select `knitr`. 
+>     - **Note** -  you may need to tell `RStudio` to use `knitr`, do this by: `Preferences` > `Sweave` find `weave Rnw files using:` and select `knitr`. 
 > - Distribute a Zip file that only contains the content of the example-manuscript folder from this repository.
 > - Explain what the handout file contains
 {: .prereq}
@@ -62,7 +62,7 @@ If all your analysis is made up of scripts, with pieces that are repeated in mul
 
 The easiest way to document your code, is to add comments around your functions to explicitly indicate the purpose of each function, what the arguments are supposed to be (class and format) and the kind of output you will get from it.
 
-You may also want to take advantage of [roxygen](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html), it's a format that allows the documentation of functions, and it can easily be converted into the file formats used by R documentation. Writing for roxygen is not very different from simple comments, you just need to add some keywords to define what will end up in the different sections of the help files. This is not a strict requirement, and will it not make your analysis more reproducible, but it will be useful down the road if you think you will convert your manuscript into a package (see aside below). RStudio makes it easy to write roxygen. Once you have started writing a function, in the menu choose `Code > Insert Roxygen Skeleton or type Ctrl + Alt + Shift + R` on your keyboard.
+You may also want to take advantage of [`roxygen`](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html), it's a format that allows the documentation of functions, and it can easily be converted into the file formats used by R documentation. Writing for roxygen is not very different from simple comments, you just need to add some keywords to define what will end up in the different sections of the help files. This is not a strict requirement, and will it not make your analysis more reproducible, but it will be useful down the road if you think you will convert your manuscript into a package (see aside below). RStudio makes it easy to write roxygen. Once you have started writing a function, in the menu choose `Code > Insert Roxygen Skeleton` or type `Ctrl + Alt + Shift + R` on your keyboard.
 
 When documenting your functions, it important to not only document the kind of input your function takes, but also the format and structure of the output.
 
@@ -87,17 +87,27 @@ The package [`testthat`]() provides a powerful and easy-to-use framework to buil
 > **Bottom line**: it really depends on your type of paper, how much code there is in it, and whether others might end up re-using it. It's not because your manuscript follows the conventions of a package that you need to submit to CRAN. If you have written functions that could be useful to the community, consider making those into a package.
 
 ## Organizing your files
-As you are writing the code for your manuscript, your life will be much easier if you spend time thinking about the organization of your files. File organization is a mix of conventions (e.g., you wouldn't want to put your data in a folder called `favorite_cat_pictures`), requirements by other tools (e.g., when we will write tests later, the package we will use expects the tests to be in a folder named `tests`), and minimizing the impact of the quirks of your project/data on the time you spent writing code. You also need to be mindful, that during the life of your project you will probably go through several iterations of data exploration, and that your analysis will generate intermediate datasets (e.g., summaries by continent/year in our case) that might be computationally expensive to recreate, and that you don't want to have to recreate everytime to build your manuscript. Additionally, it might also be useful to have the intermediate datasets, figures, and result tables, available independently from the manuscript so you can share them with your collaborators.
+As you are writing the code for your manuscript, your life will be much easier if you spend time thinking about the organization of your files. File organization is a mix of conventions (e.g., you wouldn't want to put your data in a folder called `favorite_dog_pictures`), requirements by other tools (e.g., when we will write tests later, the package we will use expects the tests to be in a folder named `tests`), and minimizing the impact of the quirks of your project/data on the time you spent writing code. You also need to be mindful, that during the life of your project you will probably go through several iterations of data exploration, and that your analysis will generate intermediate datasets (e.g., summaries by continent/year in our case) that might be computationally expensive to recreate, and that you don't want to have to recreate everytime to build your manuscript. Additionally, it might also be useful to have the intermediate datasets, figures, and result tables, available independently from the manuscript so you can share them with your collaborators.
 
 Thinking about these issues beforehand (and communicating about them with your collaborators) will save you time and headaches.
 
-In this lesson, we are going to functionalize a knitr document that is more complex than what we have seen so far but not quite as complex as a "real" research document could look like. For this project, we will use of the following folders in our working directory:
+In this lesson, we are going to functionalize a `knitr` document that is more complex than what we have seen so far but not quite as complex as a "real" research document could look like. For this project, we will employ the `ProjectTemplate` package and apply a standardized set of directories to our reserch projects.
 
-IMAGE - Replace with ProjectTemplate
-- `data-raw`: the original data, you shouldn't edit or otherwise alter any of the files in this folder. In this directory, there is one file for each country. The data is already "clean" (all files have the same columns, in the same order, the data use the same unit).
-- `data-output`: intermediate datasets that will be generated by the analysis. We write them to `.csv` (comma eperated values) files so we could share them with collaborators. If it took a long time to generate these data files, we may want to also use them for our analysis, but for this example, they are relatively small and can be recreated every time.
-- `fig`: the folder where we can store the figures used in the manuscript. In our example, the figures are generated directly during the rendering of the `Rmardown` file for the manuscript, but having the figures as standalone files may facilitate getting feedback from your collaborators, or save time if you just work on tweaking its appearance without having to recompile the full manuscript.
-- `R`: our `R` code (the functions that will generate the intermediate datasets, the analyses, and the figures), it's often easier to keep the prose separated from the code. If you have a lot of code (and/or if the manuscript is long), it's easier to navigate.
+To run `ProjectTemplate` execute the following code:
+
+```r
+library("ProjectTemplate")
+create.project("Name of Project")
+```
+`ProjectTemplate` will then create a directory with the following structure:
+
+![](../img/directories.png )
+
+## Default project layout:
+
+- `data`: the original *raw* data, you shouldn't edit or otherwise alter any of the files in this folder. **DATA ARE READ ONLY**.  If they are encoded in a supported file format, they’ll automatically be loaded when you call `load.project()`.
+- `cache`: Here is where you will store any data sets that (a) are generated during a preprocessing step and (b) don’t need to be regenerated every single time you analyze your data. You can use the `cache()` function to store data to this directory automatically. Any data set found in both the cache and data directories will be drawn from `cache` instead of `data` based on ProjectTemplate’s priority rules. We write them to `.csv` files (comma eperated values) so they are machine readable and can be easily shared. 
+- `graphs`: the folder where we can store the figures used in the project In our example, the figures are generated directly during the rendering of the `RMardown` file for the manuscript, but having the figures as standalone files may facilitate getting feedback from your collaborators, or save time if you just work on tweaking its appearance without having to recompile the full manuscript.
+- `src`: our `R` code (the functions that will generate the intermediate datasets, the analyses, and the figures), it's often easier to keep the prose separated from the code. If you have a lot of code (and/or if the manuscript is long), it's easier to navigate.
 - `tests`: the code to test that our functions are behaving properly and that all our data is included in the analysis.
-
-WILL WANT TO REDO THE ABOVE WITH `ProjectTemplate` and integrate those changes into organization.
+- There are other directories that you may not need as a newcomer, but these will come on handy as you increase your knowledge and prowess with `R`.
