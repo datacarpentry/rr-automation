@@ -1,43 +1,58 @@
+---
+title: "Functions"
+teaching: 30
+exercises: 10
+questions:
+- "What is a function?"
+- "How do functions help us with reproducibility?"
+- "How do I write a function in `R`?"
+objectives:
+- "Learn about functions"
+- "Learn how to write a function in `R`"
+keypoints:
+- "Functions complete tasks in a reproducible manner"
+- "Functions improve reproducibility"
+output:  
+      html_document:
+        keep_md: yes
+---
+
 ## What is a function?
 
-```
+> ## Overview
+> What is a function?
+{: .objectives}
+
+```{r basics, eval = FALSE}
 input --> function does something --> output
 ```
 
-One of the main benefits of writing functions is to avoid repetition of your
-code. When you write code you should aim for laziness. If you are about to copy
-a piece of code 5 times and just change a variable in each instance, you are
-better off converting it into a function. In general, you should never repeat
-yourself when you write code, it's called the DRY (Don't Repeat Yourself)
-principle.
 
-Another advantage is that your code is self contained and any variable that you
-create inside a function will not be exported into your global environment.
+One of the main benefits of writing functions is to avoid repetition of your code. When you write code you should aim for laziness. If you are about to copy a piece of code 5 times and just change a variable in each instance, you are better off converting it into a function. In general, you should never repeat yourself when you write code, it's called the DRY (Don't Repeat Yourself) principle.
+
+Another advantage is that your code is self contained and any variable that you create inside a function will not be exported into your global environment.
 
 ## How to write functions in R?
 
-```{r, purl=FALSE}
-## Fahrenheit to Celsius
-(70 - 32) * 5/9
-(65 - 32) * 5/9
-(85 - 32) * 5/9
+#### Let's convert Fahrenheit to Celsius
+```{r how_to_1}
+(70 - 32) * (5 / 9)
+(65 - 32) * (5 / 9)
+(85 - 32) * (5 / 9)
 ```
 
-Let's convert this into a function:
-
-```{r, purl=FALSE}
+#### Let's convert this into a `function`:
+```{r convert}
 fahr_to_celsius <- function(temp) {
-    (temp - 32) * 5/9
+    (temp - 32) * (5 / 9)
 }
 ```
+### Don't forget to re-evaluate your function, after modifying it.
 
-Don't forget to re-evaluate your function, after modifying it.
-
-A little better:
-
-```{r, purl=FALSE}
+#### A little better:
+```{r better_convert}
 convert_fahr <- function(temp, to) {
-    res <- (temp - 32) * 5/9
+    res <- (temp - 32) * (5 / 9)
     if (to == "kelvin") {
         res <- res + 273.15
     }
@@ -45,15 +60,12 @@ convert_fahr <- function(temp, to) {
 }
 ```
 
-
-With functions you can easily control the format of the input and avoid the
-chances for typos or other small mistakes.
-
-```{r, purl=FALSE}
+#### With functions you can easily control the format of the input and avoid the chances for typos or other small mistakes.
+```{r even_better}
 convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
     to <- tolower(to)
     to <- match.arg(to)
-    res <- (temp - 32) * 5/9
+    res <- (temp - 32) * (5 / 9)
     if (to == "kelvin") {
         res <- res + 273.15
     }
@@ -61,12 +73,10 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
 }
 ```
 
-Let's refactor this function into something even better that will allow you to
-easily expend the `convert_fahr` function to other units:
-
-```{r, purl=FALSE}
+#### Let's refactor this function into something even better that will allow you to easily expend the convert_fahr function to other units:
+```{r refactor}
 fahr_to_celsius <- function(temp) {
-    (temp - 32) * 5/9
+    (temp - 32) * (5 / 9)
 }
 
 celsius_to_kelvin <- function(temp) {
@@ -83,12 +93,32 @@ convert_fahr <- function(temp, to = c("celsius", "kelvin")) {
     res
 }
 ```
+Your intentions are clear, everything is self contained, you can easily debug, test and document each of the steps involved.
 
-Your intentions are clear, everything is self contained, you can easily debug,
-test and document each of the steps involved.
 
-### Challenge
-
-Write a function that converts pounds in kilograms (divides by 2.2).
-
-Stretch goal: and in grams.
+> ## Converter challenge
+>
+> Write a function that converts pounds in kilograms (divides pounds by 2.2).
+> 
+> *Stretch goal*: and in grams
+>
+> > ## Solution
+> >
+> > This is the body of the solution.
+> >
+> >```{r lb_to_kg}
+> > lb_to_kg <- function(pounds){
+> > kg <- pounds * 2.2
+> > return(kg)
+> >}
+> >```
+> > In grams:
+> >```{r lb_to_gm}
+> > lb_to_kg <- function(pounds){
+> > gm <- pounds * 2.2 * 1000
+> > return(gm)
+> >}
+> >```
+> > {: .output}
+> {: .solution}
+{: .challenge}

@@ -1,28 +1,34 @@
----
-title: "Functions for figures"
-teaching: 30
-exercises: 10
-questions:
-- "How can I use functions to generate figures"
-- "How can I ensure my functions work properly"
-objectives:
-- "Learn to make figures using functions"
-- "Learn to employ unit testing"
-keypoints:
-- "Functions help make figures easier to make"
-- "Unittesting helps ensure functions do what we think they should"
-output:  
-      html_document:
-        keep_md: yes
----
+# Functions for figures
 
 ## Writing functions to generate figures
 Now that we have functions to generate the datasets we need for our paper, we can start using them to generate the figures.
 
 To illustrate this concept, we are going to generate a figure before converting it into a function.
 
-```{r}
+
+```r
 library("tidyverse")
+```
+
+```
+## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr
+```
+
+```
+## Conflicts with tidy packages ----------------------------------------------
+```
+
+```
+## filter(): dplyr, stats
+## lag():    dplyr, stats
+```
+
+```r
 gdp <- read.csv(file = "../data-output/gdp.csv")
 
 gdp %>%
@@ -30,13 +36,19 @@ gdp %>%
     ggplot(aes(x = year, y = lifeExp, color = country)) +
     geom_point(aes(size = gdpPercap)) +
     geom_line() 
+```
+
+![](04-functions-for-figures_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
+```r
 # + geom_vline(xintercept = year_break, color = "red", linetype = 2) # There is no "year_break" object
 ```
 
 
 If we want to make a PDF file of this figure we could do:
 
-```{r make_pdf}
+
+```r
 # pdf(file = "gdp_comparison.pdf", width = 8, height = 6, bg = "white") # `bg = white` is important for using a `.pdf` object in a slide.
 
 gdp %>%
@@ -45,6 +57,11 @@ gdp %>%
     geom_point(aes(size = gdpPercap)) +
     geom_line() +
     geom_vline(xintercept = 1985, color = "red", linetype = 2)
+```
+
+![](04-functions-for-figures_files/figure-html/make_pdf-1.png)<!-- -->
+
+```r
 # dev.off()
 ```
 
@@ -52,7 +69,8 @@ It's not very neat, we are hardcoding where the year break (the vertical dotted 
 
 Let's convert this into a function:
 
-```{r fig_gdp}
+
+```r
 fig_gdp_comparison <- function() {
 
     gdp %>%
@@ -67,16 +85,23 @@ fig_gdp_comparison <- function() {
 
 so this part gets a little prettier:
 
-```{r make_pdf_2}
+
+```r
 pdf(file = "../fig/fig_gdp_comparison.pdf", width = 8, height = 6, bg = "white")
 fig_gdp_comparison()
 dev.off()
 ```
 
+```
+## quartz_off_screen 
+##                 2
+```
+
 If you start making a lot of figures, it would be nice to have to repeat this first and third lines...
 
 Let's create another function that will automate this process:
-```{r more_pdf}
+
+```r
 ## An example of a function that generates a PDF file from a function
 ## that creates a plot
 ## See http://nicercode.github.io/blog/2013-07-09-figure-functions/
@@ -91,9 +116,16 @@ make_pdf <- function(expr, filename, ..., verbose = TRUE) {
 make_pdf(fig_gdp_comparison(), "fig_gdp_comparison.pdf", width = 8, height = 6, bg = "white")
 ```
 
+```
+## Creating: fig_gdp_comparison.pdf
+```
+
+![](04-functions-for-figures_files/figure-html/more_pdf-1.png)<!-- -->
+
 We can even improve our `fig_gdp_commparison` to make it a little more general. For instance, we can add arguments such that the vertical line isn't always at 1985 but can be specified by the user. We can use the same approach for the list of countries to be included in the plot:
 
-```{r comparison}
+
+```r
 fig_gdp_comparison <- function(year_break = 1985,
                                countries = c("United States", "France", "Zimbabwe", "South Africa")) {
 
@@ -112,7 +144,8 @@ fig_gdp_comparison <- function(year_break = 1985,
 > - If you are looking for some inspiration (or not too familiar with R syntax), the code below compares the relationship between GDP and life expectancy for Japan and Finland.
 >
 > > ## Solution
-> >```{r solution}
+> >
+> >```r
 > > finland <- read.csv(file = "../example-manuscript/data-raw/Finland-gdp-percapita.csv")
 > > japan <- read.csv(file = "../example-manuscript/data-raw/Japan-gdp-percapita.csv")
 > > comp_finland_japan <- rbind(finland, japan)
@@ -121,6 +154,8 @@ fig_gdp_comparison <- function(year_break = 1985,
 > >   geom_point() +
 > >   stat_smooth(method = "lm", se = FALSE)
 > >```
+> >
+> >![](04-functions-for-figures_files/figure-html/solution-1.png)<!-- -->
 > >
 > > {: .output}
 > {: .solution}
@@ -134,13 +169,15 @@ One of the advantages of divvying up your entire manuscript into functions, is t
 To do so, we are going to use the package `testthat` that has been designed to test functions written for packages, but it can be applied to any kind of functions.
 
 Make sure you have `testthat` installed:
-```{r testthat, eval = FALSE}
+
+```r
 install.packages("testthat")
 ```
 
 Let's start by writing a first test:
 
-```{r first_step, eval = FALSE}
+
+```r
 library("testthat")
 ## Example of using testthat to check that a function generating a dataset works as expected.
 test_that("my first test: correct number of countries",
@@ -193,13 +230,15 @@ Will replace this with `ProjectTemplate`
 ## Tests
 `testthat` has a convenient function called `test_dir` that will run tests included in files in a given directory. We can use it to run all the tests in our `tests/` folder.
 
-```{r tests, eval = FALSE}
+
+```r
 test_dir("tests/")
 ```
 
 Let's turn it into a function, so we'll be able to add some additional functionalities to it a little later. We are also going to save it at the root of our working directory in the file called `make.R`:
 
-```{r makeR}
+
+```r
 ## add this to make.R
 make_tests <- function() {
     test_dir("tests/")
@@ -209,7 +248,8 @@ make_tests <- function() {
 ## Figures
 This is the code to generate the two figures in the manuscript:
 
-```{r add_fig}
+
+```r
 ## add this to R/figure.R
 plot_summary_lifeExp_by_continent <- function(mean_lifeExp) {
     ggplot(mean_lifeExp, aes(x = year, y = mean_lifeExp, colour = continent)) +
@@ -225,7 +265,8 @@ plot_change_trend <- function(mean_lifeExp, year_break) {
 
 This is the code to generate PDF files from figures, and the two figures as PDF files:
 
-```{r figr_maker}
+
+```r
 ## add this to make.R
 make_figures <- function(path = "fig", ...) {
     make_summary_by_continent(path = path, ...)
@@ -249,7 +290,8 @@ make_change_trend <- function(path = "fig", year = 1980, ...) {
 
 This is the code that generates the intermediate datasets:
 
-```{r more_stuff}
+
+```r
 ## add this to R/data.R
 gather_gdp_data <- function(path = "data-raw") {
     split_gdp_files <- list.files(path = path, pattern = "gdp-percapita\\.csv$", full.names = TRUE)
@@ -294,7 +336,8 @@ get_coef_before_after <- function(mean_lifeExp, year_break) {
 
 This is the code to generate the CSV files that contain the intermediate datasets that are needed to draw the figures. The function make_data generates both datasets at once.
 
-```{r add_make}
+
+```r
 ## add this to make.R
 make_data <- function(path = "data-output", verbose = TRUE) {
     make_gdp_data(path)
@@ -319,7 +362,8 @@ The only way to ensure that your analysis is reproducible is to delete all the i
 Having the figures and the intermediate data files isolated in their own folders in your working directory will allow you to make sure you only delete these generated figures, and none of the original data.
 
 
-```{r add_still_more}
+
+```r
 ## add this to make.R
 clean_data <- function(path = "data-output") {
     to_rm <- list.files(path = path, pattern = "csv$", full.names = TRUE)
@@ -338,7 +382,8 @@ clean_figures <- function(path = "fig") {
 
 These are wrapper functions to generate/delete everything:
 
-```{r yet_more}
+
+```r
 ## add this to make.R
 make_ms <- function() {
     rmarkdown::render("manuscript.Rmd", "html_document")
@@ -367,7 +412,8 @@ clean_all <- function() {
 and before we continue, we are going to replace the make_tests function with something a little more comprehensive:
 
 
-```{r make_tests}
+
+```r
 ## add this to make.R
 make_tests <- function() {
     if (require(testthat)) {

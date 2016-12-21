@@ -1,21 +1,4 @@
----
-title: "Functions"
-teaching: 30
-exercises: 10
-questions:
-- "What is a function?"
-- "How do functions help us with reproducibility?"
-- "How do I write a function in `R`?"
-objectives:
-- "Learn about functions"
-- "Learn how to write a function in `R`"
-keypoints:
-- "Functions complete tasks in a reproducible manner"
-- "Functions improve reproducibility"
-output:  
-      html_document:
-        keep_md: yes
----
+# Functions
 
 ## What is a function?
 

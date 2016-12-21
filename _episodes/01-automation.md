@@ -7,8 +7,10 @@ questions:
 - "How can we use these tools to improve reproducibility?"
 objectives:
 - "Learn to use `R`, `RStudio` and `RMarkdown`."
+- "Learn to create a `ProjectTemplate` directory in `R`."
 keypoints:
 - "`R`, `RStudio` and `RMarkdown` allow for powerful reproducible research."
+- "'ProjectTemplate' allows users to quickly and easily create a standardized directory structure for `R` projects."
 output:  
       html_document:
         keep_md: yes

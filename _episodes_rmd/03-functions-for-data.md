@@ -1,20 +1,4 @@
----
-title: "Functions for data"
-teaching: 30
-exercises: 10
-questions:
-- "How can I use base `R` to import data?"
-- "How can I build my own functions to bettwe import data?"
-objectives:
-- "Learn base `R` function for reading data"
-- "Build advanced function in `R` to read data"
-keypoints:
-- "Function automate reading data"
-- "You can build your own functions specific to your issues"
-output:  
-      html_document:
-        keep_md: yes
----
+# Functions for data
 
 ## Functions for data
 
@@ -22,7 +6,8 @@ Now that we know how to write functions, we can use this concept for preparing o
 
 Let's start with the chunk from the manuscript:
 
-```{r gather_all}
+
+```r
 ## Gathering all the data files
 split_gdp_files <- list.files(path = "../example-manuscript/data-raw", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
 
@@ -33,7 +18,8 @@ gdp <- do.call("rbind", split_gdp_list)
 
 The simplest function we can write from this chunk is simply to enclose these lines of code inside curly brackets and not forgetting to return the gdp variable on the last line:
 
-```{r gather}
+
+```r
 gather_gdp_data <- function() {
     split_gdp_files <- list.files(path = "../example-manuscript/data-raww", pattern = "gdp-percapita\\.csv$", full.names = TRUE)
   split_gdp_list <- lapply(split_gdp_files, read.csv)
@@ -44,7 +30,8 @@ gather_gdp_data <- function() {
 
 We can make this function more general by using the folder where the files are stored and the pattern we use as arguments (path and pattern respectively). This way, we could re-use this function for another project where a similar operation (combining many CSV files into a single `data.frame`) would be needed.
 
-```{r gather_data}
+
+```r
 gather_data <- function(path = "../example-manuscript/data-raw", pattern = "gdp-percapita\\.csv$") {
     split_files <- list.files(path = path, pattern = pattern, full.names = TRUE)
     split_list <- lapply(split_gdp_files, read.csv)
@@ -64,7 +51,8 @@ We can create a `make_csv` function to automatically generate CSV files from our
 
 This function takes a data frame and make a `CSV` file out of it.
 
-```{r make_csv}
+
+```r
 make_csv <- function(obj, file, ...,  verbose = TRUE) {
     if (verbose) {
         message("Creating csv file: ", file)
@@ -75,16 +63,38 @@ make_csv <- function(obj, file, ...,  verbose = TRUE) {
 
 Now, we can combine the two functions we just wrote (make_csv and gather_data) to generate a CSV file that contains the data from all countries:
 
-```{r dgp_data, eval = FALSE}
+
+```r
 gdp_data <- gather_data()
-make_csv(gdp_data, file = "../data-output/gdp.csv")
+make_csv(gdp_data, file = "data-output/gdp.csv")
 ```
 
 ### Your turn
 Transform into functions these two pieces of code.
 
-```{r get_mean_life}
+
+```r
 library("dplyr")
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 ## Turn this into a function called get_mean_lifeExp
 mean_lifeExp_by_cont <- gdp %>%
     group_by(continent, year) %>%
@@ -99,6 +109,7 @@ latest_lifeExp <- gdp %>%
     as.data.frame    
 ```
 
+
 ## Long computations
 [aside: talk about it if time permits]
 
@@ -106,7 +117,8 @@ Caching is available in knitr but it can be pretty fragile. For instance, the ca
 
 In other cases, the output of your R code can't be represented into a CSV files, so you need to save it directly into an R object.
 
-```{r make_rds}
+
+```r
 ## If you need to save an R object to avoid the repetition of long computations
 make_rds <- function(obj, file, ..., verbose = TRUE) {
     if (verbose) {
@@ -119,7 +131,8 @@ make_rds <- function(obj, file, ..., verbose = TRUE) {
 
 Then in your knitr document, you can do:
 
-```{r read_RDS, eval = FALSE}
+
+```r
 gdp <- readRDS(file = "data-output/gdp.rds")
 
 # or maybe even:
