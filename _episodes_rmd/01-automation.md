@@ -1,18 +1,4 @@
----
-title: "Introduction to automation"
-teaching: 30
-exercises: 10
-questions:
-- "What tools will we be using?"
-- "How can we use these tools to improve reproducibility?"
-objectives:
-- "Learn to use `R`, `RStudio` and `RMarkdown`."
-keypoints:
-- "`R`, `RStudio` and `RMarkdown` allow for powerful reproducible research."
-output:  
-      html_document:
-        keep_md: yes
----
+# Introduction to automation
 # Automation
 
 
