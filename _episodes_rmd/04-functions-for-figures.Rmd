@@ -12,8 +12,7 @@ keypoints:
 - "Functions help make figures easier to make"
 - "Unittesting helps ensure functions do what we think they should"
 output:  
-      html_document:
-        keep_md: yes
+      html_document
 ---
 
 ## Writing functions to generate figures
@@ -223,7 +222,7 @@ plot_change_trend <- function(mean_lifeExp, year_break) {
 }
 ```
 
-This is the code to generate PDF files from figures, and the two figures as PDF files:
+This is the code to generate PDF files from figures, and the two figures as PDF files
 
 ```{r figr_maker}
 ## add this to make.R
