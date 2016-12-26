@@ -164,7 +164,7 @@ gdp &lt;- do.call(&quot;rbind&quot;, split_gdp_list)</code></pre>
 }</code></pre>
 <p>Now, we can combine the two functions we just wrote (make_csv and gather_data) to generate a CSV file that contains the data from all countries:</p>
 <pre class="r"><code>gdp_data &lt;- gather_data()
-make_csv(gdp_data, file = &quot;data-output/gdp.csv&quot;)</code></pre>
+make_csv(gdp_data, file = &quot;../data-output/gdp.csv&quot;)</code></pre>
 <div id="your-turn" class="section level3">
 <h3>Your turn</h3>
 <p>Transform into functions these two pieces of code.</p>

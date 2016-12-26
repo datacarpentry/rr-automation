@@ -66,7 +66,7 @@ Now, we can combine the two functions we just wrote (make_csv and gather_data) t
 
 ```r
 gdp_data <- gather_data()
-make_csv(gdp_data, file = "data-output/gdp.csv")
+make_csv(gdp_data, file = "../data-output/gdp.csv")
 ```
 
 ### Your turn
@@ -108,7 +108,6 @@ latest_lifeExp <- gdp %>%
     summarize(latest_lifeExp = mean(lifeExp)) %>%
     as.data.frame    
 ```
-
 
 ## Long computations
 [aside: talk about it if time permits]

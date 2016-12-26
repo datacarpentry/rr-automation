@@ -13,8 +13,7 @@ keypoints:
 - "Functions complete tasks in a reproducible manner"
 - "Functions improve reproducibility"
 output:  
-      html_document:
-        keep_md: yes
+      html_document
 ---
 
 ## What is a function?
