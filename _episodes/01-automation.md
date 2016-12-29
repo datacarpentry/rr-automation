@@ -40,7 +40,7 @@ output:
 
 
 ## Disclaimer
-Depending on your previous experience with knitr, this lesson might seem too advanced as it provides ways to deal with annoyances you can face when you try to use knitr with a large project. If you have never used knitr before this is a good opportunity to learn efficient practices right away.
+Depending on your previous experience with `knitr`, this lesson might seem too advanced as it provides ways to deal with annoyances you can face when you try to use knitr with a large project. If you have never used knitr before this is a good opportunity to learn efficient practices right away.
 
 The main goal of this lesson is to teach you some tips and tricks that will make your life easier with knitr if you are using it in the context of a research project that involves multiple sources of raw data that are combined to create multiple intermediate datasets that are themselves combined to generate figures and tables.
 

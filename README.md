@@ -1,22 +1,20 @@
 rr-automation
 =============
 
-This lesson teaches some tips and tricks that will make life easier with R Markdown if one is using it in the context of a typical research project, which will likely involve multiple sources of raw data that are then combined to create multiple intermediate datasets which then get combined to generate figures and tables.
+This lesson teaches some tips and tricks that will make life easier with `RMarkdown` if one is using it in the context of a typical research project, which will likely involve multiple sources of raw data that are then combined to create multiple intermediate datasets which then get combined to generate figures and tables.
 
 ## Before the lesson starts
 
-* Make sure that participants have the following packages installed:
-  - knitr
-  - dplyr
-  - testthat
-  - ggplot2
-  - rmarkdown and knitr (in RStudio pushing the knit HTML button the first time will
-    prompt to have these packages installed)
+- Make sure that participants have the following packages installed:
+  - `knitr`
+  - `tidyverse`
+  - `testthat`
+  - `rmarkdown` and `knitr` (in `RStudio` pushing the knit HTML button the first time will prompt to have these packages installed)
 
-* Distribute a Zip file that only contains the content of the
+- Distribute a Zip file that only contains the content of the
   `example-manuscript` folder from this repository.
 
-* Explain what the handout file contains
+- Explain what the handout file contains
 
 ## People and credits
 
