@@ -2,9 +2,12 @@
 layout: lesson
 root: .
 ---
-FIXME: home page introduction
+This lesson shows how to use automation in `R` to improve the reproducibility of research by automating tasks.
 
 > ## Prerequisites
->
-> FIXME
+> Details for installation are found in the Setup instructions
+> - Installation of programs:
+>   - `R`
+>   - `RStudio`
+> - Additional files and packages listed in the Setup instructions
 {: .prereq}
