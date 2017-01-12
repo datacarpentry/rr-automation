@@ -15,6 +15,10 @@ output:
       html_document
 ---
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center", fig.path = "../figure/")
+```
+
 ## Writing functions to generate figures
 Now that we have functions to generate the datasets we need for our paper, we can start using them to generate the figures.
 

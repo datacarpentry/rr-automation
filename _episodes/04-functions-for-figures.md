@@ -15,6 +15,8 @@ output:
       html_document
 ---
 
+
+
 ## Writing functions to generate figures
 Now that we have functions to generate the datasets we need for our paper, we can start using them to generate the figures.
 
@@ -52,7 +54,7 @@ gdp %>%
     geom_line() 
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+<img src="../figure/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 ```r
 # + geom_vline(xintercept = year_break, color = "red", linetype = 2) # There is no "year_break" object
@@ -73,7 +75,7 @@ gdp %>%
     geom_vline(xintercept = 1985, color = "red", linetype = 2)
 ```
 
-![plot of chunk make_pdf](figure/make_pdf-1.png)
+<img src="../figure/make_pdf-1.png" title="plot of chunk make_pdf" alt="plot of chunk make_pdf" style="display: block; margin: auto;" />
 
 ```r
 # dev.off()
@@ -134,7 +136,7 @@ make_pdf(fig_gdp_comparison(), "fig_gdp_comparison.pdf", width = 8, height = 6, 
 ## Creating: fig_gdp_comparison.pdf
 ```
 
-![plot of chunk more_pdf](figure/more_pdf-1.png)
+<img src="../figure/more_pdf-1.png" title="plot of chunk more_pdf" alt="plot of chunk more_pdf" style="display: block; margin: auto;" />
 
 We can even improve our `fig_gdp_commparison` to make it a little more general. For instance, we can add arguments such that the vertical line isn't always at 1985 but can be specified by the user. We can use the same approach for the list of countries to be included in the plot:
 
@@ -169,7 +171,7 @@ fig_gdp_comparison <- function(year_break = 1985,
 > >   stat_smooth(method = "lm", se = FALSE)
 > >```
 > >
-> >![plot of chunk solution](figure/solution-1.png)
+> ><img src="../figure/solution-1.png" title="plot of chunk solution" alt="plot of chunk solution" style="display: block; margin: auto;" />
 > >
 > > {: .output}
 > {: .solution}
