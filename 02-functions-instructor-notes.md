@@ -1,4 +1,10 @@
-# 02-functions Instructor notes
+# Instructor notes for "Functions"
+
+## Learning Objectives 
+- Explaining functions in R
+- Write a simple function
+- Refactor a simple function
+- Basic understanding of scoping
 
 ### How to write functions in R?
 
