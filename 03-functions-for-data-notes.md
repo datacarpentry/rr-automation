@@ -1,5 +1,9 @@
 ## Instructor notes for "Functions for data"
 
+##Lesson Objectives
+- Function to read data into R code
+- Function to write data to R code
+
 Starting with this part of the lesson, the instructor should explain what the
 chunks of code do.
 
