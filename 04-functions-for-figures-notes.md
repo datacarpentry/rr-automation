@@ -1,5 +1,8 @@
 ## Instructor notes for "Functions for figures"
 
+##Lesson Objectives
+- Using functions to create figures
+
 Again, the instructor should show what the chunks of code do before letting
 participants convert them into functions.
 
