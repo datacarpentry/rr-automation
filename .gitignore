@@ -23,4 +23,6 @@
 .sass-cache
 __pycache__
 _site
-_episodes_rmd/_episodes_rmd.Rproj
+.Rproj.user
+.Rhistory
+.RData
