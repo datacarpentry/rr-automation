@@ -16,6 +16,19 @@ This lesson teaches some tips and tricks that will make life easier with `RMarkd
 
 - Explain what the handout file contains
 
+## Submodules
+
+[Automation] (01-automation-instructor-notes.md)
+This lesson outlines the manuscript and begins the process. Beginning with the data, the lesson explores the '''manuscript-inline.Rmd'''. 
+
+[Writing Functions in R] (02-functions-instructor-notes.md)
+Basic lesson in writing functions using R
+
+[Functions for Data] (03-functions-for-data-notes.md)
+Writing functions to automate data gathering and sharing them. 
+
+[Function for Figures] (04-functions-for-figures-notes.md)
+Writing functions to provide figures for papers. 
 ## People and credits
 
 This lesson was first created at the [1. Reproducible Science Curriculum Hackathon]. The corresponding author is **François Michonneau** ([@fmichonneau]). See the commit log for other contributors.

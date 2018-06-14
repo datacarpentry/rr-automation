@@ -1,4 +1,10 @@
-# 01-automation Instructor notes
+# Instructor notes for "automation"
+
+## Learning Objectives
+
+- Explain the motivation for automation
+- Present the underlying data and manuscript
+- Participants understand the basics of the R code presented
 
 1. Show the starting point (see content of `example-manuscript` folder):
    - one file per country in the `data-raw` folder
