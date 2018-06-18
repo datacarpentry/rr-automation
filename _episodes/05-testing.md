@@ -26,7 +26,7 @@ test_that("my first test: correct number of countries",
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "test_that"
+## Error in test_that("my first test: correct number of countries", expect_equal(length(unique(gather_gdp_data()$country)), : could not find function "test_that"
 ```
 
 The tests should be wrapped within the `test_that` function, you then provide a

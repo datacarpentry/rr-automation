@@ -48,7 +48,7 @@ test_dir("tests/")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "test_dir"
+## Error in test_dir("tests/"): could not find function "test_dir"
 ```
 
 Let's turn it into a function, so we'll be able to add some additional
