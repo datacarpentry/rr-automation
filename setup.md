@@ -22,7 +22,8 @@ install.packages("tidyverse")
 install.packages("testthat")
 install.packages("ProjectTemplate")
 ~~~
-{: .r}
+{: .language-r}
 
 The raw data files we will be working with can be downloaded here:
+
 ### Need to .zip the files to follow the presented directory structure
