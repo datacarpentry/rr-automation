@@ -13,8 +13,7 @@ objectives:
 keypoints:
 - "Functions help make figures easier to make"
 - "Unittesting helps ensure functions do what we think they should"
-output:  
-      html_document
+source: Rmd
 ---
 
 

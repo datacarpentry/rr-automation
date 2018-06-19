@@ -13,8 +13,7 @@ objectives:
 keypoints:
 - "Function automate reading data"
 - "You can build your own functions specific to your issues"
-output:  
-      html_document
+source: Rmd
 ---
 
 ## Functions for data

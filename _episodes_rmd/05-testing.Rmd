@@ -1,3 +1,17 @@
+---
+title: "Testing"
+teaching: 30
+exercises: 10
+questions:
+- "How can I use unit testing to ensure the data is in the correct format"
+objectives:
+- "Learn to use test_that functions"
+keypoints:
+- "Unittesting helps ensure functions do what we think they should"
+source: Rmd
+---
+
+
 # Testing
 
 
