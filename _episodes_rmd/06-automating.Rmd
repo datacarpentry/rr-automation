@@ -1,3 +1,15 @@
+---
+title: "Putting it all together and getting organized"
+teaching: 30
+exercises: 10
+questions:
+- "How can I choose a folder structure that will make report writing easier?"
+objectives:
+- "TBD"
+keypoints:
+- "TBD"
+source: Rmd
+---
 
 # Putting it all together and getting organized
 
