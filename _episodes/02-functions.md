@@ -14,8 +14,7 @@ objectives:
 keypoints:
 - "Functions complete tasks in a reproducible manner"
 - "Functions improve reproducibility"
-output:  
-      html_document
+source: Rmd
 ---
 
 ## What is a function?
